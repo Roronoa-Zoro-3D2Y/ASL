@@ -1,0 +1,6 @@
+<TextView android:id="@+id/asl_text_of_img"
+    android:layout_width="120dp"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+</TextView>

@@ -1,7 +1,4 @@
 package com.example.asl_project;//
-// Source code recreated from a .class file by IntelliJ IDEA
-// (powered by FernFlower decompiler)
-//
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -22,7 +19,7 @@ import com.example.asl_project.data.ASLHandler;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity3 extends AppCompatActivity {
     RecyclerView recyclerView,recyclerView2;
     ListView listViewMain;
     RecyclerView.LayoutManager layoutManager;
@@ -30,40 +27,40 @@ public class MainActivity extends AppCompatActivity {
 
     ASLHandler db2 = new ASLHandler(this);
     ArrayList<AslModel> aslModelArrayList = new ArrayList();
+    ArrayList<AslModel> aslModelArrayList2 = new ArrayList<>();
     ASL_RecyclerView_Adapter recyclerViewAdapter;
     SearchView searchView;
     ImageView home;
     int[] resourceID = new int[]{R.drawable.a,R.drawable.b,R.drawable.c,R.drawable.d,R.drawable.e,
-                                R.drawable.f,R.drawable.g,R.drawable.h,R.drawable.i,R.drawable.j,
-                                R.drawable.k,R.drawable.l,R.drawable.m,R.drawable.n,R.drawable.o,
-                                R.drawable.p,R.drawable.q,R.drawable.r,R.drawable.s,R.drawable.t,
-                                R.drawable.u,R.drawable.v,R.drawable.w,R.drawable.x,R.drawable.y,
-                                R.drawable.z,R.drawable.one,R.drawable.two,R.drawable.three,R.drawable.four,
-                                R.drawable.five,R.drawable.six,R.drawable.seven,R.drawable.eight,R.drawable.nine,
+            R.drawable.f,R.drawable.g,R.drawable.h,R.drawable.i,R.drawable.j,
+            R.drawable.k,R.drawable.l,R.drawable.m,R.drawable.n,R.drawable.o,
+            R.drawable.p,R.drawable.q,R.drawable.r,R.drawable.s,R.drawable.t,
+            R.drawable.u,R.drawable.v,R.drawable.w,R.drawable.x,R.drawable.y,
+            R.drawable.z,R.drawable.one,R.drawable.two,R.drawable.three,R.drawable.four,
+            R.drawable.five,R.drawable.six,R.drawable.seven,R.drawable.eight,R.drawable.nine,
             R.drawable.zero
     };
     int[] asl_words_IDs = new int[]{};
 
-    public MainActivity() {
+    public MainActivity3() {
     }
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main3);
         home = (ImageView)this.findViewById(R.id.home_icon);
-        recyclerView = (RecyclerView)this.findViewById(R.id.recyclerView);
+        recyclerView = (RecyclerView)this.findViewById(R.id.recyclerView_main_3);
 
         layoutManager = new GridLayoutManager(this, 2);
 
         recyclerView.setLayoutManager(layoutManager);
-        recyclerView2.setLayoutManager(layoutManager);
 
         searchView = (SearchView)this.findViewById(R.id.searchView);
         searchView.clearFocus();
         this.searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             public boolean onQueryTextSubmit(String query) {
-                MainActivity.this.searchView.clearFocus();
-                MainActivity.this.Searching2(query);
+                searchView.clearFocus();
+                Searching2(query);
                 return true;
             }
 
@@ -71,10 +68,10 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
-        this.home.setOnClickListener(new View.OnClickListener() {
+        home.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, MainActivity.class);
-                MainActivity.this.startActivity(intent);
+                Intent intent = new Intent(MainActivity3.this, MainActivity3.class);
+                MainActivity3.this.startActivity(intent);
             }
         });
         AslModel A = new AslModel(1, this.resourceID[0], "A");
@@ -159,7 +156,7 @@ public class MainActivity extends AppCompatActivity {
             Log.d("TAG", "onCreate: " + i.getId() + " id " + i.getAslAlphabet() + " alpha ");
         }
 
-        recyclerViewAdapter = new ASL_RecyclerView_Adapter(MainActivity.this, aslModelArrayList);
+        recyclerViewAdapter = new ASL_RecyclerView_Adapter(MainActivity3.this, aslModelArrayList);
         recyclerView.setAdapter(this.recyclerViewAdapter);
 
         searchView.setOnCloseListener(new SearchView.OnCloseListener() {
@@ -212,5 +209,23 @@ public class MainActivity extends AppCompatActivity {
         if(query.contains(" ")){
 
         }
+    }
+
+    public ASL_RecyclerView_Adapter getRecyclerViewAdapter() {
+        recyclerViewAdapter = new ASL_RecyclerView_Adapter(this,getAslModelArrayList2());
+        return recyclerViewAdapter;
+    }
+
+    public ArrayList<AslModel> getAslModelArrayList2() {
+        AslModel A = new AslModel(1, this.resourceID[0], "A");
+        AslModel B = new AslModel(2, this.resourceID[1], "B");
+        AslModel C = new AslModel(3, this.resourceID[2], "C");
+        AslModel D = new AslModel(4, this.resourceID[3], "D");
+        aslModelArrayList2.add(A);
+        aslModelArrayList2.add(B);
+        aslModelArrayList2.add(C);
+        aslModelArrayList2.add(D);
+
+        return aslModelArrayList2;
     }
 }

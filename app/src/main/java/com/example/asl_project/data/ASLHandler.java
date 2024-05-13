@@ -1,7 +1,3 @@
-//
-// Source code recreated from a .class file by IntelliJ IDEA
-// (powered by FernFlower decompiler)
-//
 
 package com.example.asl_project.data;
 
@@ -24,7 +20,7 @@ public class ASLHandler extends SQLiteOpenHelper {
 
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         String Create = "CREATE TABLE "+ASLPara.TABLE_NAME+"("+ASLPara.KEY_ID+" INTEGER PRIMARY KEY, "
-                +ASLPara.KEY_IMG_ID+" INTEGER PRIMARY KEY, "+ASLPara.KEY_TEXT+" TEXT"+")";
+                +ASLPara.KEY_IMG_ID+" INTEGER, "+ASLPara.KEY_TEXT+" TEXT"+")";
         sqLiteDatabase.execSQL(Create);
     }
 
