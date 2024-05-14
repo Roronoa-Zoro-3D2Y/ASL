@@ -5,9 +5,11 @@ import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -45,6 +47,7 @@ public class MainActivity2 extends AppCompatActivity {
     ASL_RecyclerView_Adapter adapter3;
     ASLHandler db = new ASLHandler(this);
     ASLHandler db_words = new ASLHandler(this);
+    ImageView search_close_icon;
     int[] resourceID = new int[]{R.drawable.a,R.drawable.b,R.drawable.c,R.drawable.d,R.drawable.e,
             R.drawable.f,R.drawable.g,R.drawable.h,R.drawable.i,R.drawable.j,
             R.drawable.k,R.drawable.l,R.drawable.m,R.drawable.n,R.drawable.o,
@@ -85,6 +88,14 @@ public class MainActivity2 extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity2.this, HomeScreen.class);
                 startActivity(intent);
+            }
+        });
+        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(searchView.getWindowToken(),0);
+                return true;
             }
         });
 
@@ -141,7 +152,7 @@ public class MainActivity2 extends AppCompatActivity {
         aslModelArrayListAlpha.add( new AslModel(11, this.resourceID[10], "K"));
         aslModelArrayListAlpha.add( new AslModel(12, this.resourceID[11], "L"));
         aslModelArrayListAlpha.add( new AslModel(13, this.resourceID[12], "M"));
-        aslModelArrayListAlpha.add( new AslModel(14, this.resourceID[13], "M"));
+        aslModelArrayListAlpha.add( new AslModel(14, this.resourceID[13], "N"));
         aslModelArrayListAlpha.add( new AslModel(15, this.resourceID[14], "O"));
         aslModelArrayListAlpha.add( new AslModel(16, this.resourceID[15], "P"));
         aslModelArrayListAlpha.add( new AslModel(17, this.resourceID[16], "Q"));
@@ -149,7 +160,7 @@ public class MainActivity2 extends AppCompatActivity {
         aslModelArrayListAlpha.add( new AslModel(19, this.resourceID[18], "S"));
         aslModelArrayListAlpha.add( new AslModel(20, this.resourceID[19], "T"));
         aslModelArrayListAlpha.add( new AslModel(21, this.resourceID[20], "U"));
-        aslModelArrayListAlpha.add( new AslModel(22, this.resourceID[21], "U"));
+        aslModelArrayListAlpha.add( new AslModel(22, this.resourceID[21], "v"));
         aslModelArrayListAlpha.add( new AslModel(23, this.resourceID[22], "W"));
         aslModelArrayListAlpha.add( new AslModel(24, this.resourceID[23], "X"));
         aslModelArrayListAlpha.add( new AslModel(25, this.resourceID[24], "Y"));
@@ -179,7 +190,6 @@ public class MainActivity2 extends AppCompatActivity {
         ArrayList<AslModel> aslModelList = new ArrayList<>();
         ASL_RecyclerView_Adapter adapter = null;
         for(int j = 0; j < query.length();j++) {
-
             char letter = Character.toLowerCase(query.charAt(j));
             for(AslModel i: aslModelArrayList) {
                 char aslLetter = Character.toLowerCase(i.getAslAlphabet().charAt(0));
@@ -228,14 +238,16 @@ public class MainActivity2 extends AppCompatActivity {
         if(query.contains(" ")) {
             words.addAll(Arrays.asList(query.split(" ")));
 
-        /*for(int w=0;w<words.size();w++)
-            Toast.makeText(MainActivity2.this," "+words.get(w),Toast.LENGTH_SHORT).show();*/
-            for (int w = 0; w < words.size(); w++) {
+        for(int w=0;w<words.size();w++)
+            Toast.makeText(MainActivity2.this," "+words.get(w),Toast.LENGTH_SHORT).show();
+
+        for (int w = 0; w < words.size(); w++) {
                 adapterArrayList.add(searchAndSetAdapter(words.get(w)));
             }
             asl_main_adapter.setQueryRecyclerViews(adapterArrayList);
         }
         else{
+            Toast.makeText(MainActivity2.this," "+query,Toast.LENGTH_SHORT).show();
             ArrayList<ASL_RecyclerView_Adapter> adapterArrayList1 = new ArrayList<>();
             adapterArrayList1.add(Searching2(query));
             asl_main_adapter.setQueryRecyclerViews(adapterArrayList1);
@@ -256,7 +268,7 @@ public class MainActivity2 extends AppCompatActivity {
         AslModel K = new AslModel(11, this.resourceID[10], "K");
         AslModel L = new AslModel(12, this.resourceID[11], "L");
         AslModel M = new AslModel(13, this.resourceID[12], "M");
-        AslModel N = new AslModel(14, this.resourceID[13], "M");
+        AslModel N = new AslModel(14, this.resourceID[13], "N");
         AslModel O = new AslModel(15, this.resourceID[14], "O");
         AslModel P = new AslModel(16, this.resourceID[15], "P");
         AslModel Q = new AslModel(17, this.resourceID[16], "Q");
@@ -264,7 +276,7 @@ public class MainActivity2 extends AppCompatActivity {
         AslModel S = new AslModel(19, this.resourceID[18], "S");
         AslModel T = new AslModel(20, this.resourceID[19], "T");
         AslModel U = new AslModel(21, this.resourceID[20], "U");
-        AslModel V = new AslModel(22, this.resourceID[21], "U");
+        AslModel V = new AslModel(22, this.resourceID[21], "v");
         AslModel W = new AslModel(23, this.resourceID[22], "W");
         AslModel X = new AslModel(24, this.resourceID[23], "X");
         AslModel Y = new AslModel(25, this.resourceID[24], "Y");
