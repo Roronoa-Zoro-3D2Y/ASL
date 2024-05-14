@@ -55,4 +55,8 @@ public class asl_main_adapter extends RecyclerView.Adapter<asl_main_adapter.MyVi
             separator = itemView.findViewById(R.id.separator);
         }
     }
+    public void setQueryRecyclerViews(ArrayList<ASL_RecyclerView_Adapter> aslModelArrayList1){
+        this.asl_recyclerView_adapters = aslModelArrayList1;
+        this.notifyDataSetChanged();
+    }
 }

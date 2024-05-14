@@ -23,6 +23,7 @@ import com.example.asl_project.databinding.ActivityMain2Binding;
 import com.google.android.material.progressindicator.BaseProgressIndicator;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class MainActivity2 extends AppCompatActivity {
@@ -63,7 +64,8 @@ public class MainActivity2 extends AppCompatActivity {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             public boolean onQueryTextSubmit(String query) {
                 searchView.clearFocus();
-                Searching2(query,adapter1);
+//                Searching2(query,adapter1);
+                wordSearch(query);
                 return true;
             }
 
@@ -104,7 +106,7 @@ public class MainActivity2 extends AppCompatActivity {
         aslModelArrayListNumbers.add(one);
         aslModelArrayListNumbers.add(two);
         aslModelArrayListNumbers.add(three);
-        aslModelArrayListNumbers.add(four);
+         aslModelArrayListNumbers.add(four);
         aslModelArrayListNumbers.add(five);
         aslModelArrayListNumbers.add(six);
         aslModelArrayListNumbers.add(seven);
@@ -185,16 +187,43 @@ public class MainActivity2 extends AppCompatActivity {
 
     }
 
+    public ASL_RecyclerView_Adapter searchAndSetAdapter(String query) {
+        ASL_RecyclerView_Adapter adapter = null;
+        ArrayList<AslModel> aslModelList = new ArrayList<>();
+//        ArrayList<AslModel> aslModelArrayList1 = getAslModelArrayListAlpha();
+        for(int j = 0; j < query.length();j++) {
+
+            char letter = Character.toLowerCase(query.charAt(j));
+            for(AslModel i: aslModelArrayList) {
+                char aslLetter = Character.toLowerCase(i.getAslAlphabet().charAt(0));
+                if (aslLetter == letter) {
+                    aslModelList.add(i);
+                }
+
+                if (aslModelArrayList.isEmpty()) {
+                    Toast.makeText(this, "Please Enter", Toast.LENGTH_SHORT).show();
+                } else {
+                    adapter = new ASL_RecyclerView_Adapter(this,aslModelList);
+                }
+            }
+        }
+        return adapter;
+    }
+
     public void wordSearch(String query){
         ArrayList<AslModel> aslModels = new ArrayList<>();
         ArrayList<String> words = new ArrayList<String>();
+        ArrayList<ASL_RecyclerView_Adapter> adapterArrayList = new ArrayList<>();
         int countWords;
         if(query.contains(" ")){
-            for(String val:query.split(" "))
-                words.add(val);
+            words.addAll(Arrays.asList(query.split(" ")));
         }
-        for(String s:words)
-            Toast.makeText(MainActivity2.this," "+s,Toast.LENGTH_SHORT);
+        /*for(int w=0;w<words.size();w++)
+            Toast.makeText(MainActivity2.this," "+words.get(w),Toast.LENGTH_SHORT).show();*/
+        for(int w=0;w<words.size();w++){
+            adapterArrayList.add(searchAndSetAdapter(words.get(w)));
+        }
+        asl_main_adapter.setQueryRecyclerViews(adapterArrayList);
     }
     public void updateDataBase(){
 
