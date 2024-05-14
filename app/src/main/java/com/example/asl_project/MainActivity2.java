@@ -39,9 +39,12 @@ public class MainActivity2 extends AppCompatActivity {
     ImageView home;
     RecyclerView recyclerView;
     ArrayList<AslModel> aslModelArrayList = new ArrayList();
+    ArrayList<AslModel> aslWordsModelArrayList = new ArrayList();
     ASL_RecyclerView_Adapter adapter1;
     ASL_RecyclerView_Adapter adapter2;
+    ASL_RecyclerView_Adapter adapter3;
     ASLHandler db = new ASLHandler(this);
+    ASLHandler db_words = new ASLHandler(this);
     int[] resourceID = new int[]{R.drawable.a,R.drawable.b,R.drawable.c,R.drawable.d,R.drawable.e,
             R.drawable.f,R.drawable.g,R.drawable.h,R.drawable.i,R.drawable.j,
             R.drawable.k,R.drawable.l,R.drawable.m,R.drawable.n,R.drawable.o,
@@ -50,6 +53,11 @@ public class MainActivity2 extends AppCompatActivity {
             R.drawable.z,R.drawable.one,R.drawable.two,R.drawable.three,R.drawable.four,
             R.drawable.five,R.drawable.six,R.drawable.seven,R.drawable.eight,R.drawable.nine,
             R.drawable.zero
+    };
+    int[] resourceIDWords = new int[]{R.drawable.asl_bored,R.drawable.asl_goodbye,R.drawable.asl_hello,
+            R.drawable.asl_help,R.drawable.asl_please,R.drawable.asl_sad,R.drawable.asl_sorry,
+            R.drawable.asl_stop,R.drawable.asl_thanks,R.drawable.asl_when,R.drawable.asl_where,
+            R.drawable.asl_which,R.drawable.asl_you_are_welcome
     };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +83,7 @@ public class MainActivity2 extends AppCompatActivity {
         });
         home.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity2.this, MainActivity2.class);
+                Intent intent = new Intent(MainActivity2.this, HomeScreen.class);
                 startActivity(intent);
             }
         });
@@ -83,9 +91,11 @@ public class MainActivity2 extends AppCompatActivity {
         updateDataBase();
         adapter1 = new ASL_RecyclerView_Adapter(MainActivity2.this,getAslModelArrayListAlpha());
         adapter2 = new ASL_RecyclerView_Adapter(MainActivity2.this,getAslModelArrayListNumbers());
+//        adapter3 = new ASL_RecyclerView_Adapter(MainActivity2.this,getAslModelArrayListWords());
 
         recyclerView_adapters.add(adapter1);
         recyclerView_adapters.add(adapter2);
+//        recyclerView_adapters.add(adapter3);
 
         asl_main_adapter = new asl_main_adapter(MainActivity2.this,recyclerView_adapters);
         recyclerView.setAdapter(asl_main_adapter);
@@ -165,9 +175,9 @@ public class MainActivity2 extends AppCompatActivity {
 
     }
 
-    public void Searching2(String query,ASL_RecyclerView_Adapter recyclerViewAdapter) {
+    public ASL_RecyclerView_Adapter Searching2(String query) {
         ArrayList<AslModel> aslModelList = new ArrayList<>();
-        ArrayList<AslModel> aslModelArrayList1 = getAslModelArrayListAlpha();
+        ASL_RecyclerView_Adapter adapter = null;
         for(int j = 0; j < query.length();j++) {
 
             char letter = Character.toLowerCase(query.charAt(j));
@@ -180,11 +190,11 @@ public class MainActivity2 extends AppCompatActivity {
                 if (aslModelArrayList.isEmpty()) {
                     Toast.makeText(this, "Please Enter", Toast.LENGTH_SHORT).show();
                 } else {
-                    recyclerViewAdapter.setFilteredList(aslModelList);
+                    adapter = new ASL_RecyclerView_Adapter(this,aslModelList);
                 }
             }
         }
-
+        return adapter;
     }
 
     public ASL_RecyclerView_Adapter searchAndSetAdapter(String query) {
@@ -215,15 +225,21 @@ public class MainActivity2 extends AppCompatActivity {
         ArrayList<String> words = new ArrayList<String>();
         ArrayList<ASL_RecyclerView_Adapter> adapterArrayList = new ArrayList<>();
         int countWords;
-        if(query.contains(" ")){
+        if(query.contains(" ")) {
             words.addAll(Arrays.asList(query.split(" ")));
-        }
+
         /*for(int w=0;w<words.size();w++)
             Toast.makeText(MainActivity2.this," "+words.get(w),Toast.LENGTH_SHORT).show();*/
-        for(int w=0;w<words.size();w++){
-            adapterArrayList.add(searchAndSetAdapter(words.get(w)));
+            for (int w = 0; w < words.size(); w++) {
+                adapterArrayList.add(searchAndSetAdapter(words.get(w)));
+            }
+            asl_main_adapter.setQueryRecyclerViews(adapterArrayList);
         }
-        asl_main_adapter.setQueryRecyclerViews(adapterArrayList);
+        else{
+            ArrayList<ASL_RecyclerView_Adapter> adapterArrayList1 = new ArrayList<>();
+            adapterArrayList1.add(Searching2(query));
+            asl_main_adapter.setQueryRecyclerViews(adapterArrayList1);
+        }
     }
     public void updateDataBase(){
 
@@ -263,6 +279,22 @@ public class MainActivity2 extends AppCompatActivity {
         AslModel eight = new AslModel(34, this.resourceID[33], "8");
         AslModel nine = new AslModel(35, this.resourceID[34], "9");
         AslModel zero = new AslModel(36, this.resourceID[35], "0");
+
+
+        AslModel bored = new AslModel(37, this.resourceIDWords[0], "BORED");
+        AslModel goodbye = new AslModel(38, this.resourceIDWords[1], "GOODBYE");
+        AslModel hello = new AslModel(39, this.resourceIDWords[2], "HELLO");
+        AslModel help = new AslModel(40, this.resourceIDWords[3], "HELP");
+        AslModel please = new AslModel(41, this.resourceIDWords[4], "PLEASE");
+        AslModel sad = new AslModel(42, this.resourceIDWords[5], "SAD");
+        AslModel sorry = new AslModel(43, this.resourceIDWords[6], "SORRY");
+        AslModel stop = new AslModel(44, this.resourceIDWords[7], "STOP");
+        AslModel thanks = new AslModel(45, this.resourceIDWords[8], "THANKS");
+        AslModel when = new AslModel(46, this.resourceIDWords[9], "WHEN");
+        AslModel where = new AslModel(47, this.resourceIDWords[10], "WHERE");
+        AslModel which = new AslModel(48, this.resourceIDWords[11], "WHICH");
+        AslModel welcome = new AslModel(49, this.resourceIDWords[12], "You Are Welcome/WELCOME");
+
         db.addASL(A);
         db.addASL(B);
         db.addASL(C);
@@ -302,9 +334,45 @@ public class MainActivity2 extends AppCompatActivity {
 
 //        db.deleteTABLE();
 
+
+
+        /*db.addASL(bored);
+        db.addASL(goodbye);
+        db.addASL(hello);
+        db.addASL(help);
+        db.addASL(please);
+        db.addASL(sad);
+        db.addASL(sorry);
+        db.addASL(stop);
+        db.addASL(thanks);
+        db.addASL(when);
+        db.addASL(where);
+        db.addASL(which);
+        db.addASL(welcome);*/
+
         List<AslModel> aslModelList = db.getAllAslMap();
         aslModelArrayList.addAll(aslModelList);
 
+//        List<AslModel> aslWordsModelList = db_words.getAllAslMap();
+//        aslWordsModelArrayList.addAll(aslWordsModelList);
     }
 
+    public ArrayList<AslModel> getAslModelArrayListWords() {
+
+        aslModelArrayListWords.add(new AslModel(1, this.resourceIDWords[0], "BORED"));
+        aslModelArrayListWords.add(new AslModel(2, this.resourceIDWords[1], "GOODBYE"));
+        aslModelArrayListWords.add(new AslModel(3, this.resourceIDWords[2], "HELLO"));
+        aslModelArrayListWords.add(new AslModel(4, this.resourceIDWords[3], "HELP"));
+        aslModelArrayListWords.add(new AslModel(5, this.resourceIDWords[4], "PLEASE"));
+        aslModelArrayListWords.add(new  AslModel(6, this.resourceIDWords[5], "SAD"));
+        aslModelArrayListWords.add(new AslModel(7, this.resourceIDWords[6], "SORRY"));
+        aslModelArrayListWords.add(new AslModel(8, this.resourceIDWords[7], "STOP"));
+        aslModelArrayListWords.add(new AslModel(9, this.resourceIDWords[8], "THANKS"));
+        aslModelArrayListWords.add(new AslModel(10, this.resourceIDWords[9], "WHEN"));
+        aslModelArrayListWords.add(new AslModel(11, this.resourceIDWords[10], "WHERE"));
+        aslModelArrayListWords.add(new AslModel(12, this.resourceIDWords[11], "WHICH"));
+        aslModelArrayListWords.add(new AslModel(13, this.resourceIDWords[12], "You Are Welcome/WELCOME"));
+
+        return aslModelArrayListWords;
+    }
 }

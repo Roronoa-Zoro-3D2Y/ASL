@@ -33,7 +33,7 @@ public class ASLHandler extends SQLiteOpenHelper {
         values.put(ASLPara.KEY_ID, aslModel.getId());
         values.put(ASLPara.KEY_IMG_ID, aslModel.getAslImage());
         values.put(ASLPara.KEY_TEXT, aslModel.getAslAlphabet());
-        db.insert(ASLPara.TABLE_NAME, (String)null, values);
+        db.insert(ASLPara.TABLE_NAME, null, values);
         db.close();
     }
 

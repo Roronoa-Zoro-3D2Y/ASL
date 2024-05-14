@@ -10,4 +10,6 @@
 
 
     <color name="asl_purple">#9C27B0</color>
+    <color name="asl_bg">#F4E5F7</color>
+    <color name="asl_text">#693373</color>
 </resources>

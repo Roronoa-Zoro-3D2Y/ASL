@@ -2,4 +2,7 @@
     <string name="app_name">ASL_project</string>
     <string name="test">TESTING</string>
     <string name="seach_view">Search Here...</string>
+    <string name="home_heading">Welcome Text to ASL</string>
+    <string name="home_card1">Text to ASL</string>
+    <string name="home_card2">Words to ASL</string>
 </resources>
