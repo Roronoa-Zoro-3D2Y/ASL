@@ -29,9 +29,7 @@ import java.util.List;
 public class NumberSearch extends AppCompatActivity {
     MainActivity3 mainActivity3;
     ListView listView;
-    ArrayList<AslModel> aslModelArrayListAlpha = new ArrayList<>();
     ArrayList<AslModel> aslModelArrayListNumbers = new ArrayList<>();
-    ArrayList<AslModel> aslModelArrayListWords = new ArrayList<>();
     ArrayList<ASL_RecyclerView_Adapter> recyclerView_adapters = new ArrayList<>();
 
     asl_main_adapter asl_main_adapter;
@@ -160,8 +158,8 @@ public class NumberSearch extends AppCompatActivity {
         if(query.contains(" ")) {
             words.addAll(Arrays.asList(query.split(" ")));
 
-            for(int w=0;w<words.size();w++)
-                Toast.makeText(NumberSearch.this," "+words.get(w),Toast.LENGTH_SHORT).show();
+            /*for(int w=0;w<words.size();w++)
+                Toast.makeText(NumberSearch.this," "+words.get(w),Toast.LENGTH_SHORT).show();*/
 
             for (int w = 0; w < words.size(); w++) {
                 adapterArrayList.add(searchAndSetAdapter(words.get(w)));

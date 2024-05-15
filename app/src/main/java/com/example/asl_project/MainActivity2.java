@@ -191,13 +191,13 @@ public class MainActivity2 extends AppCompatActivity {
         ASL_RecyclerView_Adapter adapter = null;
         for(int j = 0; j < query.length();j++) {
             char letter = Character.toLowerCase(query.charAt(j));
-            for(AslModel i: aslModelArrayList) {
+            for(AslModel i: aslModelArrayListAlpha) {
                 char aslLetter = Character.toLowerCase(i.getAslAlphabet().charAt(0));
                 if (aslLetter == letter) {
                     aslModelList.add(i);
                 }
 
-                if (aslModelArrayList.isEmpty()) {
+                if (aslModelArrayListAlpha.isEmpty()) {
                     Toast.makeText(this, "Please Enter", Toast.LENGTH_SHORT).show();
                 } else {
                     adapter = new ASL_RecyclerView_Adapter(this,aslModelList);
@@ -214,13 +214,13 @@ public class MainActivity2 extends AppCompatActivity {
         for(int j = 0; j < query.length();j++) {
 
             char letter = Character.toLowerCase(query.charAt(j));
-            for(AslModel i: aslModelArrayList) {
+            for(AslModel i: aslModelArrayListAlpha) {
                 char aslLetter = Character.toLowerCase(i.getAslAlphabet().charAt(0));
                 if (aslLetter == letter) {
                     aslModelList.add(i);
                 }
 
-                if (aslModelArrayList.isEmpty()) {
+                if (aslModelArrayListAlpha.isEmpty()) {
                     Toast.makeText(this, "Please Enter", Toast.LENGTH_SHORT).show();
                 } else {
                     adapter = new ASL_RecyclerView_Adapter(this,aslModelList);
