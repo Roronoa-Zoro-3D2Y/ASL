@@ -3,6 +3,14 @@
     <string name="test">TESTING</string>
     <string name="seach_view">Search Here...</string>
     <string name="home_heading">Welcome Text to ASL</string>
-    <string name="home_card1">Text to ASL</string>
+    <string name="home_card1">Letters to ASL</string>
     <string name="home_card2">Words to ASL</string>
+    <string name="home_card3">Numbers to ASL</string>
+    <string name="home_card4">New Module</string>
+
+
+
+    <string name="under_construction_head">Sorry about That</string>
+    <string name="uc_img_head">MODULE</string>
+    <string name="uc_back_button">BACK</string>
 </resources>

@@ -101,11 +101,11 @@ public class MainActivity2 extends AppCompatActivity {
 
         updateDataBase();
         adapter1 = new ASL_RecyclerView_Adapter(MainActivity2.this,getAslModelArrayListAlpha());
-        adapter2 = new ASL_RecyclerView_Adapter(MainActivity2.this,getAslModelArrayListNumbers());
+//        adapter2 = new ASL_RecyclerView_Adapter(MainActivity2.this,getAslModelArrayListNumbers());
 //        adapter3 = new ASL_RecyclerView_Adapter(MainActivity2.this,getAslModelArrayListWords());
 
         recyclerView_adapters.add(adapter1);
-        recyclerView_adapters.add(adapter2);
+//        recyclerView_adapters.add(adapter2);
 //        recyclerView_adapters.add(adapter3);
 
         asl_main_adapter = new asl_main_adapter(MainActivity2.this,recyclerView_adapters);
@@ -281,7 +281,7 @@ public class MainActivity2 extends AppCompatActivity {
         AslModel X = new AslModel(24, this.resourceID[23], "X");
         AslModel Y = new AslModel(25, this.resourceID[24], "Y");
         AslModel Z = new AslModel(26, this.resourceID[25], "Z");
-        AslModel one = new AslModel(27, this.resourceID[26], "1");
+/*        AslModel one = new AslModel(27, this.resourceID[26], "1");
         AslModel two = new AslModel(28, this.resourceID[27], "2");
         AslModel three = new AslModel(29, this.resourceID[28], "3");
         AslModel four = new AslModel(30, this.resourceID[29], "4");
@@ -290,7 +290,7 @@ public class MainActivity2 extends AppCompatActivity {
         AslModel seven = new AslModel(33, this.resourceID[32], "7");
         AslModel eight = new AslModel(34, this.resourceID[33], "8");
         AslModel nine = new AslModel(35, this.resourceID[34], "9");
-        AslModel zero = new AslModel(36, this.resourceID[35], "0");
+        AslModel zero = new AslModel(36, this.resourceID[35], "0");*/
 
 
         AslModel bored = new AslModel(37, this.resourceIDWords[0], "BORED");
@@ -333,7 +333,8 @@ public class MainActivity2 extends AppCompatActivity {
         db.addASL(X);
         db.addASL(Y);
         db.addASL(Z);
-        db.addASL(zero);
+
+        /*db.addASL(zero);
         db.addASL(one);
         db.addASL(two);
         db.addASL(three);
@@ -342,7 +343,7 @@ public class MainActivity2 extends AppCompatActivity {
         db.addASL(six);
         db.addASL(seven);
         db.addASL(eight);
-        db.addASL(nine);
+        db.addASL(nine);*/
 
 //        db.deleteTABLE();
 
