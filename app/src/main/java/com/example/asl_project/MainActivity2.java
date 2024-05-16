@@ -99,7 +99,7 @@ public class MainActivity2 extends AppCompatActivity {
             }
         });
 
-        updateDataBase();
+//        updateDataBase();
         adapter1 = new ASL_RecyclerView_Adapter(MainActivity2.this,getAslModelArrayListAlpha());
 //        adapter2 = new ASL_RecyclerView_Adapter(MainActivity2.this,getAslModelArrayListNumbers());
 //        adapter3 = new ASL_RecyclerView_Adapter(MainActivity2.this,getAslModelArrayListWords());
@@ -172,12 +172,12 @@ public class MainActivity2 extends AppCompatActivity {
     public void Searching(String text,ASL_RecyclerView_Adapter recyclerViewAdapter) {
         ArrayList<AslModel> aslModelList = new ArrayList<>();
 
-        for(AslModel i:aslModelArrayList) {
+        for(AslModel i:aslModelArrayListAlpha) {
             if (i.getAslAlphabet().toLowerCase().contains(text.toLowerCase())) {
                 aslModelList.add(i);
             }
 
-            if (aslModelArrayList.isEmpty()) {
+            if (aslModelArrayListAlpha.isEmpty()) {
                 Toast.makeText(this, "Please Enter", Toast.LENGTH_SHORT).show();
             } else {
                 recyclerViewAdapter.setFilteredList(aslModelList);

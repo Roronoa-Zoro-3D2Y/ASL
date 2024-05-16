@@ -75,7 +75,7 @@ public class NumberSearch extends AppCompatActivity {
             }
         });
 
-        updateDataBase();
+//        updateDataBase();
         adapter2 = new ASL_RecyclerView_Adapter(NumberSearch.this,getAslModelArrayListNumbers());
 
         recyclerView_adapters.add(adapter2);

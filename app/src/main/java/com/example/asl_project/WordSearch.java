@@ -78,7 +78,7 @@ public class WordSearch extends AppCompatActivity {
             }
         });
 
-        updateDataBase();
+//        updateDataBase();
         adapter3 = new ASL_RecyclerView_Adapter(WordSearch.this,getAslModelArrayListWords());
 
         recyclerView_adapters.add(adapter3);
