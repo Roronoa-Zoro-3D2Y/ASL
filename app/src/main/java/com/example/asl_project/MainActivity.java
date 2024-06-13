@@ -22,7 +22,7 @@ import com.example.asl_project.data.ASLHandler;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements ASLRecyclerViewInterface{
     RecyclerView recyclerView,recyclerView2;
     ListView listViewMain;
     RecyclerView.LayoutManager layoutManager;
@@ -159,7 +159,7 @@ public class MainActivity extends AppCompatActivity {
             Log.d("TAG", "onCreate: " + i.getId() + " id " + i.getAslAlphabet() + " alpha ");
         }
 
-        recyclerViewAdapter = new ASL_RecyclerView_Adapter(MainActivity.this, aslModelArrayList);
+        recyclerViewAdapter = new ASL_RecyclerView_Adapter(MainActivity.this, aslModelArrayList,this);
         recyclerView.setAdapter(this.recyclerViewAdapter);
 
         searchView.setOnCloseListener(new SearchView.OnCloseListener() {
@@ -212,5 +212,20 @@ public class MainActivity extends AppCompatActivity {
         if(query.contains(" ")){
 
         }
+    }
+
+    /*@Override
+    public void OnItemClick(AslModel aslModel, int pos) {
+
+    }*/
+
+    @Override
+    public void OnItemClick(ArrayList<AslModel> aslModelArrayList, int pos) {
+
+    }
+
+    @Override
+    public void OnRecyclerViewClick(int pos) {
+
     }
 }

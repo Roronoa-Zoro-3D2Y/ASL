@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
@@ -18,6 +19,7 @@ import android.widget.Toast;
 import com.example.asl_project.Adapters.ASL_RecyclerView_Adapter;
 import com.example.asl_project.Adapters.List_Adapter;
 import com.example.asl_project.Adapters.asl_main_adapter;
+import com.example.asl_project.Adapters.asl_temp_main_adapter;
 import com.example.asl_project.Model.AslModel;
 
 import com.example.asl_project.data.ASLHandler;
@@ -28,15 +30,20 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class MainActivity2 extends AppCompatActivity {
-    MainActivity3 mainActivity3;
-    ListView listView;
+public class MainActivity2 extends AppCompatActivity implements ASLRecyclerViewInterface,ASLMainInterface {
+     public boolean userHasSearched = false,userSearch_words = false;
     ArrayList<AslModel> aslModelArrayListAlpha = new ArrayList<>();
     ArrayList<AslModel> aslModelArrayListNumbers = new ArrayList<>();
     ArrayList<AslModel> aslModelArrayListWords = new ArrayList<>();
+    ArrayList<AslModel> aslDescriptionList = new ArrayList<>();
+    ArrayList<ArrayList<AslModel>> wordsHolder  = new ArrayList<>();
     ArrayList<ASL_RecyclerView_Adapter> recyclerView_adapters = new ArrayList<>();
+    ArrayList<ASL_RecyclerView_Adapter> adapterArrayList = new ArrayList<>();
+    ArrayList<ArrayList<AslModel>> wordSearched = new ArrayList<>();
 
     asl_main_adapter asl_main_adapter;
+    asl_temp_main_adapter asl_temp_main_adapter;
+
     SearchView searchView;
     ImageView home;
     RecyclerView recyclerView;
@@ -48,6 +55,10 @@ public class MainActivity2 extends AppCompatActivity {
     ASLHandler db = new ASLHandler(this);
     ASLHandler db_words = new ASLHandler(this);
     ImageView search_close_icon;
+
+
+
+    int recyclerViewChildPos = -1;
     int[] resourceID = new int[]{R.drawable.a,R.drawable.b,R.drawable.c,R.drawable.d,R.drawable.e,
             R.drawable.f,R.drawable.g,R.drawable.h,R.drawable.i,R.drawable.j,
             R.drawable.k,R.drawable.l,R.drawable.m,R.drawable.n,R.drawable.o,
@@ -74,8 +85,14 @@ public class MainActivity2 extends AppCompatActivity {
         home = findViewById(R.id.home_icon);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             public boolean onQueryTextSubmit(String query) {
+                userHasSearched = true;
                 searchView.clearFocus();
 //                Searching2(query,adapter1);
+                if(!query.contains(" ")) {
+                    recyclerView.setAdapter(asl_main_adapter);
+                }
+                adapterArrayList = new ArrayList<>();
+                wordSearched = new ArrayList<>();
                 wordSearch(query);
                 return true;
             }
@@ -100,7 +117,7 @@ public class MainActivity2 extends AppCompatActivity {
         });
 
 //        updateDataBase();
-        adapter1 = new ASL_RecyclerView_Adapter(MainActivity2.this,getAslModelArrayListAlpha());
+        adapter1 = new ASL_RecyclerView_Adapter(MainActivity2.this,getAslModelArrayListAlpha(),this);
 //        adapter2 = new ASL_RecyclerView_Adapter(MainActivity2.this,getAslModelArrayListNumbers());
 //        adapter3 = new ASL_RecyclerView_Adapter(MainActivity2.this,getAslModelArrayListWords());
 
@@ -108,34 +125,11 @@ public class MainActivity2 extends AppCompatActivity {
 //        recyclerView_adapters.add(adapter2);
 //        recyclerView_adapters.add(adapter3);
 
-        asl_main_adapter = new asl_main_adapter(MainActivity2.this,recyclerView_adapters);
-        recyclerView.setAdapter(asl_main_adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-    }
-    public ArrayList<AslModel> getAslModelArrayListNumbers() {
-        AslModel one = new AslModel(27, this.resourceID[26], "1");
-        AslModel two = new AslModel(28, this.resourceID[27], "2");
-        AslModel three = new AslModel(29, this.resourceID[28], "3");
-        AslModel four = new AslModel(30, this.resourceID[29], "4");
-        AslModel five = new AslModel(31, this.resourceID[30], "5");
-        AslModel six = new AslModel(32, this.resourceID[31], "6");
-        AslModel seven = new AslModel(33, this.resourceID[32], "7");
-        AslModel eight = new AslModel(34, this.resourceID[33], "8");
-        AslModel nine = new AslModel(35, this.resourceID[34], "9");
-        AslModel zero = new AslModel(36, this.resourceID[35], "0");
-        aslModelArrayListNumbers.add(one);
-        aslModelArrayListNumbers.add(two);
-        aslModelArrayListNumbers.add(three);
-         aslModelArrayListNumbers.add(four);
-        aslModelArrayListNumbers.add(five);
-        aslModelArrayListNumbers.add(six);
-        aslModelArrayListNumbers.add(seven);
-        aslModelArrayListNumbers.add(eight);
-        aslModelArrayListNumbers.add(nine);
-        aslModelArrayListNumbers.add(zero);
-
-        return aslModelArrayListNumbers;
+        //Opening List
+            asl_main_adapter = new asl_main_adapter(MainActivity2.this, recyclerView_adapters, this);
+            recyclerView.setAdapter(asl_main_adapter);
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
     public ArrayList<AslModel> getAslModelArrayListAlpha() {
@@ -186,30 +180,37 @@ public class MainActivity2 extends AppCompatActivity {
 
     }
 
+
+
     public ASL_RecyclerView_Adapter Searching2(String query) {
         ArrayList<AslModel> aslModelList = new ArrayList<>();
         ASL_RecyclerView_Adapter adapter = null;
+        aslDescriptionList = new ArrayList<>();
         for(int j = 0; j < query.length();j++) {
             char letter = Character.toLowerCase(query.charAt(j));
             for(AslModel i: aslModelArrayListAlpha) {
                 char aslLetter = Character.toLowerCase(i.getAslAlphabet().charAt(0));
                 if (aslLetter == letter) {
                     aslModelList.add(i);
+                    aslDescriptionList.add(i);
                 }
 
                 if (aslModelArrayListAlpha.isEmpty()) {
                     Toast.makeText(this, "Please Enter", Toast.LENGTH_SHORT).show();
                 } else {
-                    adapter = new ASL_RecyclerView_Adapter(this,aslModelList);
+                    adapter = new ASL_RecyclerView_Adapter(this,aslModelList,this);
+//                    if(userHasSearched==true)
+//                        setAslDescriptionList(aslModelList);
                 }
             }
         }
         return adapter;
     }
 
-    public ASL_RecyclerView_Adapter searchAndSetAdapter(String query) {
+    public ArrayList<AslModel> searchAndSetArrayList(String query) {
         ASL_RecyclerView_Adapter adapter = null;
         ArrayList<AslModel> aslModelList = new ArrayList<>();
+
 //        ArrayList<AslModel> aslModelArrayList1 = getAslModelArrayListAlpha();
         for(int j = 0; j < query.length();j++) {
 
@@ -218,40 +219,149 @@ public class MainActivity2 extends AppCompatActivity {
                 char aslLetter = Character.toLowerCase(i.getAslAlphabet().charAt(0));
                 if (aslLetter == letter) {
                     aslModelList.add(i);
+//                    aslDescriptionList.add(i);
                 }
 
                 if (aslModelArrayListAlpha.isEmpty()) {
                     Toast.makeText(this, "Please Enter", Toast.LENGTH_SHORT).show();
                 } else {
-                    adapter = new ASL_RecyclerView_Adapter(this,aslModelList);
+                    adapter = new ASL_RecyclerView_Adapter(this,aslModelList,this);
+
+//                    aslDescriptionList.addAll(aslModelList);
+//                    if(userHasSearched==true)
+//                        setAslDescriptionList(aslModelList);
+
                 }
             }
         }
-        return adapter;
+        return aslModelList;
     }
 
     public void wordSearch(String query){
-        ArrayList<AslModel> aslModels = new ArrayList<>();
-        ArrayList<String> words = new ArrayList<String>();
-        ArrayList<ASL_RecyclerView_Adapter> adapterArrayList = new ArrayList<>();
-        int countWords;
+        ArrayList<String> words = new ArrayList<>();
+
+        aslDescriptionList = new ArrayList<>();
         if(query.contains(" ")) {
+            userSearch_words = true;
             words.addAll(Arrays.asList(query.split(" ")));
 
-        for(int w=0;w<words.size();w++)
-            Toast.makeText(MainActivity2.this," "+words.get(w),Toast.LENGTH_SHORT).show();
+            for(int w=0;w<words.size();w++)
+//            Log.d("TESTING", "wordSearch: "+words.get(w));
+                Toast.makeText(MainActivity2.this," "+words.get(w),Toast.LENGTH_SHORT).show();
 
-        for (int w = 0; w < words.size(); w++) {
-                adapterArrayList.add(searchAndSetAdapter(words.get(w)));
+            for (int w = 0; w < words.size(); w++) {
+//                adapterArrayList.add(searchAndSetAdapter(words.get(w)));
+                wordSearched.add(searchAndSetArrayList(words.get(w)));
+                wordsHolder.add(searchAndSetArrayList(words.get(w)));
             }
-            asl_main_adapter.setQueryRecyclerViews(adapterArrayList);
+            if(userSearch_words){
+                asl_temp_main_adapter = new asl_temp_main_adapter(MainActivity2.this,wordSearched,this);
+                recyclerView.setAdapter(asl_temp_main_adapter);
+                recyclerView.setLayoutManager(new LinearLayoutManager(this));
+            }
         }
         else{
+            userSearch_words=false;
             Toast.makeText(MainActivity2.this," "+query,Toast.LENGTH_SHORT).show();
             ArrayList<ASL_RecyclerView_Adapter> adapterArrayList1 = new ArrayList<>();
             adapterArrayList1.add(Searching2(query));
+//            wordSearched.add(Searching2(query));
             asl_main_adapter.setQueryRecyclerViews(adapterArrayList1);
+
         }
+    }
+
+    @Override
+    public void OnItemClick(ArrayList<AslModel> aslDescriptionList,int pos) {
+        Log.d("TAG1", "Working:"+pos);
+//        if(userSearch_words){
+//            Log.d("TAG3", ""+pos);
+//            int recyclerViewPos = asl_main_adapter.sendMainAdapterPos();
+//            Log.d("TEST2", " "+recyclerViewPos);
+//        }
+        if(!userSearch_words) {
+            AslModel aslModel = aslDescriptionList.get(pos);
+            Intent intent = new Intent(MainActivity2.this, PhotoDescription.class);
+            intent.putExtra("ASL_ALPHABET", aslModel.getAslAlphabet());
+            intent.putExtra("ASL_IMAGE", aslModel.getId() + "");
+            startActivity(intent);
+        }
+        else {
+            Log.d("btn_number", getRecyclerViewChildPos()+"");
+            AslModel aslModel = adapterArrayList.get(getRecyclerViewChildPos()).aslModelArrayList.get(pos);
+
+            Intent intent = new Intent(MainActivity2.this, PhotoDescription.class);
+            intent.putExtra("ASL_ALPHABET", aslModel.getAslAlphabet());
+            intent.putExtra("ASL_IMAGE", aslModel.getId() + "");
+            startActivity(intent);
+        }
+    }
+
+
+    public void OnRecyclerViewClick(int pos) {
+        Log.d("TAG2", "Working: ");
+        if(userSearch_words){
+
+            Log.d("TAG4", ""+pos);
+            aslDescriptionList = wordsHolder.get(pos);
+            int n = aslDescriptionList.size();
+
+        }
+        Log.d("TAG2", "Working: "+pos+"yo yo");
+        setRecyclerViewChildPos(pos);
+    }
+    public int getRecyclerViewChildPos() {
+        return recyclerViewChildPos;
+    }
+
+    public void setRecyclerViewChildPos(int recyclerViewChildPos) {
+        this.recyclerViewChildPos = recyclerViewChildPos;
+    }
+    @Override
+    public void onRecyclerViewClick(ASL_RecyclerView_Adapter asl_recyclerView_adapters) {
+    }
+
+    public ArrayList<AslModel> getAslModelArrayListNumbers() {
+        AslModel one = new AslModel(27, this.resourceID[26], "1");
+        AslModel two = new AslModel(28, this.resourceID[27], "2");
+        AslModel three = new AslModel(29, this.resourceID[28], "3");
+        AslModel four = new AslModel(30, this.resourceID[29], "4");
+        AslModel five = new AslModel(31, this.resourceID[30], "5");
+        AslModel six = new AslModel(32, this.resourceID[31], "6");
+        AslModel seven = new AslModel(33, this.resourceID[32], "7");
+        AslModel eight = new AslModel(34, this.resourceID[33], "8");
+        AslModel nine = new AslModel(35, this.resourceID[34], "9");
+        AslModel zero = new AslModel(36, this.resourceID[35], "0");
+        aslModelArrayListNumbers.add(one);
+        aslModelArrayListNumbers.add(two);
+        aslModelArrayListNumbers.add(three);
+        aslModelArrayListNumbers.add(four);
+        aslModelArrayListNumbers.add(five);
+        aslModelArrayListNumbers.add(six);
+        aslModelArrayListNumbers.add(seven);
+        aslModelArrayListNumbers.add(eight);
+        aslModelArrayListNumbers.add(nine);
+        aslModelArrayListNumbers.add(zero);
+
+        return aslModelArrayListNumbers;
+    }
+    public ArrayList<AslModel> getAslModelArrayListWords() {
+
+        aslModelArrayListWords.add(new AslModel(1, this.resourceIDWords[0], "BORED"));
+        aslModelArrayListWords.add(new AslModel(2, this.resourceIDWords[1], "GOODBYE"));
+        aslModelArrayListWords.add(new AslModel(3, this.resourceIDWords[2], "HELLO"));
+        aslModelArrayListWords.add(new AslModel(4, this.resourceIDWords[3], "HELP"));
+        aslModelArrayListWords.add(new AslModel(5, this.resourceIDWords[4], "PLEASE"));
+        aslModelArrayListWords.add(new  AslModel(6, this.resourceIDWords[5], "SAD"));
+        aslModelArrayListWords.add(new AslModel(7, this.resourceIDWords[6], "SORRY"));
+        aslModelArrayListWords.add(new AslModel(8, this.resourceIDWords[7], "STOP"));
+        aslModelArrayListWords.add(new AslModel(9, this.resourceIDWords[8], "THANKS"));
+        aslModelArrayListWords.add(new AslModel(10, this.resourceIDWords[9], "WHEN"));
+        aslModelArrayListWords.add(new AslModel(11, this.resourceIDWords[10], "WHERE"));
+        aslModelArrayListWords.add(new AslModel(12, this.resourceIDWords[11], "WHICH"));
+        aslModelArrayListWords.add(new AslModel(13, this.resourceIDWords[12], "You Are Welcome/WELCOME"));
+
+        return aslModelArrayListWords;
     }
     public void updateDataBase(){
 
@@ -370,22 +480,162 @@ public class MainActivity2 extends AppCompatActivity {
 //        aslWordsModelArrayList.addAll(aslWordsModelList);
     }
 
-    public ArrayList<AslModel> getAslModelArrayListWords() {
+    /*public ASL_RecyclerView_Adapter Searching2(String query) {
+        ArrayList<AslModel> aslModelList = new ArrayList<>();
+        ASL_RecyclerView_Adapter adapter = null;
+        aslDescriptionList = new ArrayList<>();
+        for(int j = 0; j < query.length();j++) {
+            char letter = Character.toLowerCase(query.charAt(j));
+            for(AslModel i: aslModelArrayListAlpha) {
+                char aslLetter = Character.toLowerCase(i.getAslAlphabet().charAt(0));
+                if (aslLetter == letter) {
+                    aslModelList.add(i);
+                    aslDescriptionList.add(i);
+                }
 
-        aslModelArrayListWords.add(new AslModel(1, this.resourceIDWords[0], "BORED"));
-        aslModelArrayListWords.add(new AslModel(2, this.resourceIDWords[1], "GOODBYE"));
-        aslModelArrayListWords.add(new AslModel(3, this.resourceIDWords[2], "HELLO"));
-        aslModelArrayListWords.add(new AslModel(4, this.resourceIDWords[3], "HELP"));
-        aslModelArrayListWords.add(new AslModel(5, this.resourceIDWords[4], "PLEASE"));
-        aslModelArrayListWords.add(new  AslModel(6, this.resourceIDWords[5], "SAD"));
-        aslModelArrayListWords.add(new AslModel(7, this.resourceIDWords[6], "SORRY"));
-        aslModelArrayListWords.add(new AslModel(8, this.resourceIDWords[7], "STOP"));
-        aslModelArrayListWords.add(new AslModel(9, this.resourceIDWords[8], "THANKS"));
-        aslModelArrayListWords.add(new AslModel(10, this.resourceIDWords[9], "WHEN"));
-        aslModelArrayListWords.add(new AslModel(11, this.resourceIDWords[10], "WHERE"));
-        aslModelArrayListWords.add(new AslModel(12, this.resourceIDWords[11], "WHICH"));
-        aslModelArrayListWords.add(new AslModel(13, this.resourceIDWords[12], "You Are Welcome/WELCOME"));
+                if (aslModelArrayListAlpha.isEmpty()) {
+                    Toast.makeText(this, "Please Enter", Toast.LENGTH_SHORT).show();
+                } else {
+                    adapter = new ASL_RecyclerView_Adapter(this,aslModelList,this);
+//                    if(userHasSearched==true)
+//                        setAslDescriptionList(aslModelList);
+                }
+            }
+        }
+        return adapter;
+    }*/
 
-        return aslModelArrayListWords;
+    /*public ASL_RecyclerView_Adapter searchAndSetAdapter(String query) {
+        ASL_RecyclerView_Adapter adapter = null;
+        ArrayList<AslModel> aslModelList = new ArrayList<>();
+
+//        ArrayList<AslModel> aslModelArrayList1 = getAslModelArrayListAlpha();
+        for(int j = 0; j < query.length();j++) {
+
+            char letter = Character.toLowerCase(query.charAt(j));
+            for(AslModel i: aslModelArrayListAlpha) {
+                char aslLetter = Character.toLowerCase(i.getAslAlphabet().charAt(0));
+                if (aslLetter == letter) {
+                    aslModelList.add(i);
+//                    aslDescriptionList.add(i);
+                }
+
+                if (aslModelArrayListAlpha.isEmpty()) {
+                    Toast.makeText(this, "Please Enter", Toast.LENGTH_SHORT).show();
+                } else {
+                    adapter = new ASL_RecyclerView_Adapter(this,aslModelList,this);
+
+//                    aslDescriptionList.addAll(aslModelList);
+//                    if(userHasSearched==true)
+//                        setAslDescriptionList(aslModelList);
+
+                }
+            }
+        }
+        return adapter;
+    }*/
+
+    /*public void wordSearch(String query){
+        ArrayList<AslModel> aslModels = new ArrayList<>();
+        ArrayList<String> words = new ArrayList<>();
+
+        aslDescriptionList = new ArrayList<>();
+        int countWords;
+        if(query.contains(" ")) {
+            userSearch_words = true;
+            words.addAll(Arrays.asList(query.split(" ")));
+
+            for(int w=0;w<words.size();w++)
+//            Log.d("TESTING", "wordSearch: "+words.get(w));
+                Toast.makeText(MainActivity2.this," "+words.get(w),Toast.LENGTH_SHORT).show();
+
+            for (int w = 0; w < words.size(); w++) {
+                adapterArrayList.add(searchAndSetAdapter(words.get(w)));
+                wordsHolder.add(adapterArrayList.get(w).aslModelArrayList);
+//                aslDescriptionList.addAll(adapterArrayList.get(w).aslModelArrayList);
+            }
+//            asl_main_adapter.setQueryRecyclerViews(adapterArrayList);
+            if(userHasSearched){
+                asl_temp_main_adapter = new asl_temp_main_adapter(MainActivity2.this,adapterArrayList,this);
+                recyclerView.setAdapter(asl_temp_main_adapter);
+                recyclerView.setLayoutManager(new LinearLayoutManager(this));
+            }
+        }
+        else{
+            Toast.makeText(MainActivity2.this," "+query,Toast.LENGTH_SHORT).show();
+            ArrayList<ASL_RecyclerView_Adapter> adapterArrayList1 = new ArrayList<>();
+            adapterArrayList1.add(Searching2(query));
+//            asl_main_adapter.setQueryRecyclerViews(adapterArrayList1);
+            if(userHasSearched){
+                asl_temp_main_adapter = new asl_temp_main_adapter(MainActivity2.this,adapterArrayList1,this);
+                recyclerView.setAdapter(asl_temp_main_adapter);
+                recyclerView.setLayoutManager(new LinearLayoutManager(this));
+            }
+        }
+    }*/
+
+
+
+/*    public void OnItemClick(int position,String test) {
+
+        Intent intent = new Intent(MainActivity2.this, PhotoDescription.class);
+
+//        intent.putExtra("ASL_ALPHABET",test);
+
+       *//* if(userSearch_words == true){
+            for(ArrayList<AslModel> i:wordsHolder){
+                    intent.putExtra("ASL_ALPHABET",i.get(position).getAslAlphabet());
+                    intent.putExtra("ASL_IMAGE",i.get(position).getId()+"");
+                startActivity(intent);
+            }
+        }*//*
+        if(userSearch_words == true){
+                aslDescriptionList = wordsHolder.get(position);
+            Log.d("TAG", "user clicked on postion"+position);
+            intent.putExtra("ASL_ALPHABET",aslDescriptionList.get(position).getAslAlphabet());
+            intent.putExtra("ASL_IMAGE",aslDescriptionList.get(position).getId()+"");
+            startActivity(intent);
+        }
+
+        else {
+            if (userHasSearched == false) {
+                setAslDescriptionList(aslModelArrayListAlpha);
+            }
+            Log.d("TAG", "user clicked on postion" + position);
+            intent.putExtra("ASL_ALPHABET", aslDescriptionList.get(position).getAslAlphabet());
+            intent.putExtra("ASL_IMAGE", aslDescriptionList.get(position).getId() + "");
+            startActivity(intent);
+        }
+    }*/
+
+    public void OnItemClick(AslModel aslModel,int pos) {
+        Log.d("TAG1", "Working:"+pos);
+//        if(userSearch_words){
+//            Log.d("TAG3", ""+pos);
+//            int recyclerViewPos = asl_main_adapter.sendMainAdapterPos();
+//            Log.d("TEST2", " "+recyclerViewPos);
+//        }
+        if(!userSearch_words) {
+            Intent intent = new Intent(MainActivity2.this, PhotoDescription.class);
+            intent.putExtra("ASL_ALPHABET", aslModel.getAslAlphabet());
+            intent.putExtra("ASL_IMAGE", aslModel.getId() + "");
+            startActivity(intent);
+        }
+        else {
+            Log.d("btn_number", getRecyclerViewChildPos()+"");
+//            int temp = asl_main_adapter.sendMainAdapterPos();
+            int temp;
+            if(recyclerViewChildPos != -1){
+                temp = getRecyclerViewChildPos();
+                Log.d("TAG50", temp+"");
+            }
+            aslModel = adapterArrayList.get(getRecyclerViewChildPos()).aslModelArrayList.get(pos);
+
+            Intent intent = new Intent(MainActivity2.this, PhotoDescription.class);
+            intent.putExtra("ASL_ALPHABET", aslModel.getAslAlphabet());
+            intent.putExtra("ASL_IMAGE", aslModel.getId() + "");
+            startActivity(intent);
+
+        }
     }
 }

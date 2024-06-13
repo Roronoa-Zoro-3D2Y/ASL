@@ -9,6 +9,19 @@
     <color name="white">#FFFFFFFF</color>
 
 
+
+    <color name="asl_photo_bg">#f2ecf8</color>
+    <color name="asl_photo_dcrp_1">#FFFFFF</color>
+    <color name="asl_photo_dcrp_2">#F29BFF</color>
+    <color name="asl_photo_dcrp_3">#f5f0f9</color>
+    <color name="asl_photo_heading">#8134DF</color>
+    <color name="asl_photo_title">#9C27B0</color>
+
+    <color name="asl_words_more_info">#BCBABC</color>
+    <color name="asl_words_more_info_2">#AFAFAF</color>
+
+
+
 <!--    <color name="asl_purple">#9C27B0</color>-->
     <color name="asl_purple">#9933FF</color>
 <!--    <color name="asl_bg">#F4E5F7</color>-->
@@ -18,8 +31,9 @@
     <color name="asl_text">#FFFFFF</color>
 <!--    <color name="asl_card_bg">#e5d576</color>-->
 <!--    <color name="asl_card_bg">#f8cadc</color>-->
-<!--    <color name="asl_card_bg">#7291F9</color>-->
+   <!-- <color name="asl_card_bg">#7291F9</color>-->
     <color name="asl_card_bg">#99CC66</color>
+<!--    <color name="asl_card_bg">#95CC55</color>-->
         <color name="lightest_purple">#F4E5F7</color>
         <color name="lightest_pink">#f8cadc</color>
         <color name="light_blue">#7291F9</color>

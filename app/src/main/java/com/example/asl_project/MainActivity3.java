@@ -19,7 +19,7 @@ import com.example.asl_project.data.ASLHandler;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity3 extends AppCompatActivity {
+public class MainActivity3 extends AppCompatActivity implements ASLRecyclerViewInterface{
     RecyclerView recyclerView,recyclerView2;
     ListView listViewMain;
     RecyclerView.LayoutManager layoutManager;
@@ -156,7 +156,7 @@ public class MainActivity3 extends AppCompatActivity {
             Log.d("TAG", "onCreate: " + i.getId() + " id " + i.getAslAlphabet() + " alpha ");
         }
 
-        recyclerViewAdapter = new ASL_RecyclerView_Adapter(MainActivity3.this, aslModelArrayList);
+        recyclerViewAdapter = new ASL_RecyclerView_Adapter(MainActivity3.this, aslModelArrayList,this);
         recyclerView.setAdapter(this.recyclerViewAdapter);
 
         searchView.setOnCloseListener(new SearchView.OnCloseListener() {
@@ -212,7 +212,7 @@ public class MainActivity3 extends AppCompatActivity {
     }
 
     public ASL_RecyclerView_Adapter getRecyclerViewAdapter() {
-        recyclerViewAdapter = new ASL_RecyclerView_Adapter(this,getAslModelArrayList2());
+        recyclerViewAdapter = new ASL_RecyclerView_Adapter(this,getAslModelArrayList2(),this);
         return recyclerViewAdapter;
     }
 
@@ -227,5 +227,21 @@ public class MainActivity3 extends AppCompatActivity {
         aslModelArrayList2.add(D);
 
         return aslModelArrayList2;
+    }
+
+
+    /*@Override
+    public void OnItemClick(AslModel aslModel, int pos) {
+
+    }*/
+
+    @Override
+    public void OnItemClick(ArrayList<AslModel> aslModelArrayList, int pos) {
+
+    }
+
+    @Override
+    public void OnRecyclerViewClick(int pos) {
+
     }
 }

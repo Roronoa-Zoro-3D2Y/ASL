@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class WordSearch extends AppCompatActivity {
+public class WordSearch extends AppCompatActivity implements ASLRecyclerViewInterface,ASLMainInterface {
     MainActivity3 mainActivity3;
     ListView listView;
     ArrayList<AslModel> aslModelArrayListAlpha = new ArrayList<>();
@@ -79,11 +79,12 @@ public class WordSearch extends AppCompatActivity {
         });
 
 //        updateDataBase();
-        adapter3 = new ASL_RecyclerView_Adapter(WordSearch.this,getAslModelArrayListWords());
+        adapter3 = new ASL_RecyclerView_Adapter(WordSearch.this,getAslModelArrayListWords(),this);
 
         recyclerView_adapters.add(adapter3);
 
-        asl_main_adapter = new asl_main_adapter(WordSearch.this,recyclerView_adapters);
+        asl_main_adapter = new asl_main_adapter(WordSearch.this,recyclerView_adapters,this);
+//        asl_main_adapter = new asl_main_adapter(WordSearch.this,recyclerView_adapters,this);
         recyclerView.setAdapter(asl_main_adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(WordSearch.this));
 
@@ -122,7 +123,7 @@ public class WordSearch extends AppCompatActivity {
                 if (aslWordsModelArrayList.isEmpty()) {
                     Toast.makeText(WordSearch.this, "Please Enter", Toast.LENGTH_SHORT).show();
                 } else {
-                    adapter = new ASL_RecyclerView_Adapter(WordSearch.this,aslModelList);
+                    adapter = new ASL_RecyclerView_Adapter(WordSearch.this,aslModelList,this);
                 }
             }
         }
@@ -143,7 +144,7 @@ public class WordSearch extends AppCompatActivity {
                 if (aslModelArrayListWords.isEmpty()) {
                     Toast.makeText(WordSearch.this, "Please Enter", Toast.LENGTH_SHORT).show();
                 } else {
-                    adapter = new ASL_RecyclerView_Adapter(WordSearch.this,aslModelList);
+                    adapter = new ASL_RecyclerView_Adapter(WordSearch.this,aslModelList,this);
                 }
             }
 
@@ -212,5 +213,27 @@ public class WordSearch extends AppCompatActivity {
         aslModelArrayListWords.add(new AslModel(13,resourceIDWords[12], "You Are Welcome/WELCOME"));
 
         return aslModelArrayListWords;
+    }
+
+
+
+    @Override
+    public void onRecyclerViewClick(ASL_RecyclerView_Adapter asl_recyclerView_adapters) {
+
+    }
+
+    /*@Override
+    public void OnItemClick(AslModel aslModel, int pos) {
+
+    }*/
+
+    @Override
+    public void OnItemClick(ArrayList<AslModel> aslModelArrayList, int pos) {
+
+    }
+
+    @Override
+    public void OnRecyclerViewClick(int pos) {
+
     }
 }

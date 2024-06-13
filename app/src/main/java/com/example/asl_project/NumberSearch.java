@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class NumberSearch extends AppCompatActivity {
+public class NumberSearch extends AppCompatActivity implements ASLRecyclerViewInterface,ASLMainInterface{
     MainActivity3 mainActivity3;
     ListView listView;
     ArrayList<AslModel> aslModelArrayListNumbers = new ArrayList<>();
@@ -76,11 +76,12 @@ public class NumberSearch extends AppCompatActivity {
         });
 
 //        updateDataBase();
-        adapter2 = new ASL_RecyclerView_Adapter(NumberSearch.this,getAslModelArrayListNumbers());
+        adapter2 = new ASL_RecyclerView_Adapter(NumberSearch.this,getAslModelArrayListNumbers(),this);
 
         recyclerView_adapters.add(adapter2);
 
-        asl_main_adapter = new asl_main_adapter(NumberSearch.this,recyclerView_adapters);
+//        asl_main_adapter = new asl_main_adapter(NumberSearch.this,recyclerView_adapters,this);
+        asl_main_adapter = new asl_main_adapter(NumberSearch.this,recyclerView_adapters,this);
         recyclerView.setAdapter(asl_main_adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(NumberSearch.this));
 
@@ -119,7 +120,7 @@ public class NumberSearch extends AppCompatActivity {
                 if (aslNumberArrayList.isEmpty()) {
                     Toast.makeText(NumberSearch.this, "Please Enter", Toast.LENGTH_SHORT).show();
                 } else {
-                    adapter = new ASL_RecyclerView_Adapter(NumberSearch.this,aslModelList);
+                    adapter = new ASL_RecyclerView_Adapter(NumberSearch.this,aslModelList,this);
                 }
             }
         }
@@ -142,7 +143,7 @@ public class NumberSearch extends AppCompatActivity {
                 if (aslModelArrayListNumbers.isEmpty()) {
                     Toast.makeText(NumberSearch.this, "Please Enter", Toast.LENGTH_SHORT).show();
                 } else {
-                    adapter = new ASL_RecyclerView_Adapter(NumberSearch.this, aslModelList);
+                    adapter = new ASL_RecyclerView_Adapter(NumberSearch.this, aslModelList,this);
                 }
             }
         }
@@ -233,4 +234,26 @@ public class NumberSearch extends AppCompatActivity {
         return aslModelArrayListNumbers;
     }
 
+
+
+
+    @Override
+    public void onRecyclerViewClick(ASL_RecyclerView_Adapter asl_recyclerView_adapters) {
+
+    }
+
+  /*  @Override
+    public void OnItemClick(AslModel aslModel, int pos) {
+
+    }*/
+
+    @Override
+    public void OnItemClick(ArrayList<AslModel> aslModelArrayList, int pos) {
+
+    }
+
+    @Override
+    public void OnRecyclerViewClick(int pos) {
+
+    }
 }

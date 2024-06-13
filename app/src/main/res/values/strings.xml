@@ -9,8 +9,15 @@
     <string name="home_card4">New Module</string>
 
 
+    <string name="asl_description_heading">ASL ALPHABET</string>
+    <string name="asl_photo_title">A</string>
+    <string name="asl_a_des_1">Make a fist with all fingers curled tightly into your palm. </string>
+    <string name="asl_a_des_2">Place your thumb against the side of your index finger, resting along the outer edge.</string>
 
     <string name="under_construction_head">Sorry about That</string>
     <string name="uc_img_head">MODULE</string>
     <string name="uc_back_button">BACK</string>
+
+
+    <string name="asl_alpha_word_search">More Info</string>
 </resources>
