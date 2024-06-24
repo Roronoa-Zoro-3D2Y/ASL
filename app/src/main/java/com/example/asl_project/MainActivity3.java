@@ -241,7 +241,8 @@ public class MainActivity3 extends AppCompatActivity implements ASLRecyclerViewI
     }
 
     @Override
-    public void OnRecyclerViewClick(int pos) {
+    public void OnRecyclerViewClick(int posClicked, int childPos) {
 
     }
+
 }

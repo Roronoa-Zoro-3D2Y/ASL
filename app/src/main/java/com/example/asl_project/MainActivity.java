@@ -225,7 +225,8 @@ public class MainActivity extends AppCompatActivity implements ASLRecyclerViewIn
     }
 
     @Override
-    public void OnRecyclerViewClick(int pos) {
+    public void OnRecyclerViewClick(int posClicked, int childPos) {
 
     }
+
 }

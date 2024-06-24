@@ -43,21 +43,25 @@ public class asl_temp_main_adapter extends RecyclerView.Adapter<asl_temp_main_ad
         this.searchedWordsList = aslModelArrayList1;
 //        this.asl_recyclerView_adapters2 = aslModelArrayList1;
         this.aslRecyclerViewInterface= aslRecyclerViewInterface;
+
     }
 
     @NonNull
     @Override
     public asl_temp_main_adapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.simple_recycler_view,parent,false);
         view2 = inflater.inflate(R.layout.simple_recycler_view,parent,false);
-        return new MyViewHolder(view,this.aslRecyclerViewInterface);
+        return new MyViewHolder(view,this.aslRecyclerViewInterface,this.searchedWordsList);
     }
 
     @Override
     public void onBindViewHolder(@NonNull asl_temp_main_adapter.MyViewHolder holder, int position) {
-        ASL_RecyclerView_Adapter adapter;
-        adapter = new ASL_RecyclerView_Adapter(this.context,searchedWordsList.get(position),aslRecyclerViewInterface);
+//        ASL_RecyclerView_Adapter adapter;
+//        adapter = new ASL_RecyclerView_Adapter(this.context,searchedWordsList.get(position),aslRecyclerViewInterface);
+        ASL_RecyclerView_Word_Adapter adapter;
+        adapter = new ASL_RecyclerView_Word_Adapter(this.context,searchedWordsList.get(position),aslRecyclerViewInterface,position);
         holder.recyclerViewChild.setAdapter(adapter);
 //        holder.recyclerViewChild.setAdapter(asl_recyclerView_adapters.get(position));
         holder.recyclerViewChild.setLayoutManager(new GridLayoutManager(context,2));
@@ -82,11 +86,23 @@ public class asl_temp_main_adapter extends RecyclerView.Adapter<asl_temp_main_ad
             super(view);
 
         }
-        public MyViewHolder(@NonNull View itemView, ASLRecyclerViewInterface aslRecyclerViewInterface) {
+        public MyViewHolder(@NonNull View itemView, ASLRecyclerViewInterface aslRecyclerViewInterface,ArrayList<ArrayList<AslModel>> ListOfLists) {
             super(itemView);
             recyclerViewChild = itemView.findViewById(R.id.recyclerView_main_3);
             separator = itemView.findViewById(R.id.separator);
-            buttonGetPos = itemView.findViewById(R.id.getRecyclerViewPos);
+//            buttonGetPos = itemView.findViewById(R.id.getRecyclerViewPos);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(aslRecyclerViewInterface != null){
+                        int pos = getLayoutPosition();
+                        if(pos != RecyclerView.NO_POSITION){
+                            aslRecyclerViewInterface.OnItemClick(ListOfLists.get(pos),pos);
+                            Log.d("Inside temp main adapter", " "+pos);
+                        }
+                    }
+                }
+            });
 
         }
 

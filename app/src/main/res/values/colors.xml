@@ -21,6 +21,7 @@
     <color name="asl_words_more_info_2">#AFAFAF</color>
 
 
+    <color name="letter_wd_space">#F5D9FD</color>
 
 <!--    <color name="asl_purple">#9C27B0</color>-->
     <color name="asl_purple">#9933FF</color>
@@ -32,9 +33,77 @@
 <!--    <color name="asl_card_bg">#e5d576</color>-->
 <!--    <color name="asl_card_bg">#f8cadc</color>-->
    <!-- <color name="asl_card_bg">#7291F9</color>-->
-    <color name="asl_card_bg">#99CC66</color>
+<!--    <color name="asl_card_bg">#99CC66</color>-->
 <!--    <color name="asl_card_bg">#95CC55</color>-->
         <color name="lightest_purple">#F4E5F7</color>
         <color name="lightest_pink">#f8cadc</color>
         <color name="light_blue">#7291F9</color>
+
+    <color name="main_first">#850F8D</color>
+    <color name="main_second">#C738BD</color>
+    <color name="main_third">#E49BFF</color>
+    <color name="main_light">#F8F9D7</color>
+
+    <color name="retro_main">#6C22A6</color>
+    <color name="retro_second">#6962AD</color>
+    <color name="retro_third">#83C0C1</color>
+    <color name="retro_light">#96E9C6</color>
+
+    <!--<color name="random_main">#4A0E5C</color>
+    <color name="random_second">#7C4789</color>
+    <color name="random_third">#BCA3CA</color>
+    <color name="random_light">#CCF0C3</color>-->
+
+    <color name="random_main">#801C9E</color>
+    <color name="random_second">#B96CCC</color>
+    <color name="random_third">#D7BAE8</color>
+    <color name="random_light">#D7FDCE</color>
+
+    <color name="green_main">#2e2c42</color>
+    <color name="green_main2">#393750</color>
+    <color name="green_second">#106a6b</color>
+    <color name="green_third">#5aa791</color>
+    <color name="green_fourth">#228f72</color>
+    <color name="green_fifth">#84d08a</color>
+    <color name="green_sixth">#D9F9D9</color>
+    <color name="green_seventh">#F1FCF1</color>
+
+    <color name="word_list_1">#F38181</color>
+    <color name="word_list_2">#FCE38A</color>
+    <color name="word_list_3">#D6F7AD</color>
+    <color name="word_list_4">#95E1D3</color>
+
+   <!-- <color name="word_list_1">#F23557</color>
+    <color name="word_list_2">#F0D43A</color>
+    <color name="word_list_3">#22B2DA</color>
+    <color name="word_list_4">#3B4A6B</color>
+-->
+    <!--<color name="word_list_1">#FF407D</color>
+    <color name="word_list_2">#FFCAD4</color>
+    <color name="word_list_3">#40679E</color>
+    <color name="word_list_4">#1B3C73</color>-->
+
+    <color name="asl_card_bg">#B7D56C</color>
+    <color name="asl_card_bg1">#baebd6</color>
+    <color name="asl_card_bg2">#ebe6ba</color>
+    <color name="asl_card_bg3">#ebbacf</color>
+    <color name="asl_card_bg4">#ebe6ba</color>
+
+    <color name="card_palette1">#ffd380</color>
+    <color name="card_palette2">#ffa600</color>
+    <color name="card_palette3">#ff8531</color>
+    <color name="card_palette4">#ff6361</color>
+    <color name="card_palette5">#bc5090</color>
+    <color name="card_palette6">#8a508f</color>
+    <color name="card_palette7">#2c4875</color>
+    <color name="card_palette8">#003f5c</color>
+    <color name="card_palette9">#00202e</color>
+
+
+    <color name="card_palette21">#ffe761</color>
+    <color name="card_palette22">#ff6361</color>
+    <color name="card_palette23">#ff6361</color>
+    <color name="card_palette24">#ff6361</color>
+    <color name="card_palette25">#ff6361</color>
+
 </resources>

@@ -2,7 +2,8 @@
     <string name="app_name">ASL_project</string>
     <string name="test">TESTING</string>
     <string name="seach_view">Search Here...</string>
-    <string name="home_heading">Welcome Text to ASL</string>
+    <string name="home_heading1">Welcome To</string>
+    <string name="home_heading2">Text to ASL</string>
     <string name="home_card1">Letters to ASL</string>
     <string name="home_card2">Words to ASL</string>
     <string name="home_card3">Numbers to ASL</string>
@@ -17,6 +18,12 @@
     <string name="under_construction_head">Sorry about That</string>
     <string name="uc_img_head">MODULE</string>
     <string name="uc_back_button">BACK</string>
+
+    <string name="word_list_heading">WORDS LIST</string>
+    <string name="word_list_one">Common Words</string>
+    <string name="word_list_two">Fruits</string>
+    <string name="word_list_three">Vegetables</string>
+    <string name="word_list_four">Family</string>
 
 
     <string name="asl_alpha_word_search">More Info</string>

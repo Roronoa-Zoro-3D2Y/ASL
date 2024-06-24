@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -52,6 +53,7 @@ public class WordSearch extends AppCompatActivity implements ASLRecyclerViewInte
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_word_search);
 
         recyclerView = findViewById(R.id.word_main_list);
@@ -233,7 +235,8 @@ public class WordSearch extends AppCompatActivity implements ASLRecyclerViewInte
     }
 
     @Override
-    public void OnRecyclerViewClick(int pos) {
+    public void OnRecyclerViewClick(int posClicked, int childPos) {
 
     }
+
 }

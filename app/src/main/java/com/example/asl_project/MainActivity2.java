@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
@@ -76,6 +77,7 @@ public class MainActivity2 extends AppCompatActivity implements ASLRecyclerViewI
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main2);
 
         recyclerView = findViewById(R.id.main_list);
@@ -287,9 +289,21 @@ public class MainActivity2 extends AppCompatActivity implements ASLRecyclerViewI
             startActivity(intent);
         }
         else {
-            Log.d("btn_number", getRecyclerViewChildPos()+"");
-            AslModel aslModel = adapterArrayList.get(getRecyclerViewChildPos()).aslModelArrayList.get(pos);
+//            Log.d("btn_number", getRecyclerViewChildPos()+"");
+//            AslModel aslModel = adapterArrayList.get(getRecyclerViewChildPos()).aslModelArrayList.get(pos);
+            AslModel aslModel = aslDescriptionList.get(pos);
 
+            Intent intent = new Intent(MainActivity2.this, PhotoDescription.class);
+            intent.putExtra("ASL_ALPHABET", aslModel.getAslAlphabet());
+            intent.putExtra("ASL_IMAGE", aslModel.getId() + "");
+            startActivity(intent);
+        }
+    }
+
+    @Override
+    public void OnRecyclerViewClick(int posClicked, int childPos) {
+        if(userSearch_words) {
+            AslModel aslModel = wordSearched.get(childPos).get(posClicked);
             Intent intent = new Intent(MainActivity2.this, PhotoDescription.class);
             intent.putExtra("ASL_ALPHABET", aslModel.getAslAlphabet());
             intent.putExtra("ASL_IMAGE", aslModel.getId() + "");
@@ -299,7 +313,7 @@ public class MainActivity2 extends AppCompatActivity implements ASLRecyclerViewI
 
 
     public void OnRecyclerViewClick(int pos) {
-        Log.d("TAG2", "Working: ");
+        /*Log.d("TAG2", "Working: ");
         if(userSearch_words){
 
             Log.d("TAG4", ""+pos);
@@ -308,7 +322,8 @@ public class MainActivity2 extends AppCompatActivity implements ASLRecyclerViewI
 
         }
         Log.d("TAG2", "Working: "+pos+"yo yo");
-        setRecyclerViewChildPos(pos);
+        setRecyclerViewChildPos(pos);*/
+
     }
     public int getRecyclerViewChildPos() {
         return recyclerViewChildPos;

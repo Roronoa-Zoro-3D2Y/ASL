@@ -7,6 +7,6 @@ import java.util.ArrayList;
 public interface ASLRecyclerViewInterface {
 //    void OnItemClick(AslModel aslModel,int pos);
     void OnItemClick(ArrayList<AslModel> aslModelArrayList, int pos);
-    void OnRecyclerViewClick(int pos);
+    void OnRecyclerViewClick(int posClicked,int childPos);
 
 }

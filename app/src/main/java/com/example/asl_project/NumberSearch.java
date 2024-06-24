@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -49,6 +50,7 @@ public class NumberSearch extends AppCompatActivity implements ASLRecyclerViewIn
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_number_search);
 
         recyclerView = findViewById(R.id.num_main_list);
@@ -253,7 +255,8 @@ public class NumberSearch extends AppCompatActivity implements ASLRecyclerViewIn
     }
 
     @Override
-    public void OnRecyclerViewClick(int pos) {
+    public void OnRecyclerViewClick(int posClicked, int childPos) {
 
     }
+
 }

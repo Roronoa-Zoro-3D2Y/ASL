@@ -93,8 +93,8 @@ public class asl_main_adapter extends RecyclerView.Adapter<asl_main_adapter.MyVi
                         int pos = getAdapterPosition();
                          childPosition2 = getLayoutPosition();
                         if (pos != RecyclerView.NO_POSITION) {
-//                            aslRecyclerViewInterface.OnItemClick(asl_recyclerView_adapters2.get(pos),pos);
-                              aslRecyclerViewInterface.OnRecyclerViewClick(pos);
+                            aslRecyclerViewInterface.OnItemClick(asl_recyclerView_adapters2.get(pos).aslModelArrayList,pos);
+//                              aslRecyclerViewInterface.OnRecyclerViewClick(pos);
                             Log.d("mainAdapter", " position "+pos);
 //                            Toast.makeText(context2,"Posion"+pos,Toast.LENGTH_SHORT).show();
                         }

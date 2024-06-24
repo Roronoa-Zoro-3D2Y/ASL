@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 
 public class HomeScreen extends AppCompatActivity {
@@ -23,6 +24,7 @@ public class HomeScreen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_home_screen);
         cardText = findViewById(R.id.letters_to_ASl);
         cardWords = findViewById(R.id.words_to_ASL);
@@ -68,6 +70,7 @@ public class HomeScreen extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         Intent intent = new Intent(HomeScreen.this,HomeScreen.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);
                     }
                 });
