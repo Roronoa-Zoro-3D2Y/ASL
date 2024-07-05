@@ -157,7 +157,7 @@
                 android:outlineAmbientShadowColor="@color/black"
                 android:outlineSpotShadowColor="@color/black"
                 android:layout_weight="1"
-                app:cardBackgroundColor="#ffe761"
+                app:cardBackgroundColor="@color/card_palette1"
                 >
 
                 <androidx.constraintlayout.widget.ConstraintLayout

@@ -42,7 +42,7 @@ public class HomeScreen extends AppCompatActivity {
         cardWords.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(HomeScreen.this,WordSearch.class);
+                Intent intent = new Intent(HomeScreen.this,WordSearchLists.class);
                 startActivity(intent);
             }
         });
@@ -64,6 +64,7 @@ public class HomeScreen extends AppCompatActivity {
                 underDevelopment = new Dialog(HomeScreen.this);
                 underDevelopment.setContentView(R.layout.under_development);
                 underDevelopment.getWindow();
+                underDevelopment.setCanceledOnTouchOutside(false);
                 underDevelopment.show();
                 back = underDevelopment.findViewById(R.id.the_back_btn);
                 back.setOnClickListener(new View.OnClickListener() {

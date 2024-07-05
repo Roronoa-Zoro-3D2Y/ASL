@@ -29,6 +29,8 @@ public class ASL_RecyclerView_Adapter extends RecyclerView.Adapter<ASL_RecyclerV
      public ArrayList<AslModel> aslModelArrayList;
      static ArrayList<AslModel> aslModelArrayList2;
     String aslTextBeingSet;
+    boolean isWordSearch;
+    boolean isFamily;
 
     ArrayList<ArrayList<AslModel>> listOfAsls = new ArrayList<>();
 
@@ -58,13 +60,29 @@ public class ASL_RecyclerView_Adapter extends RecyclerView.Adapter<ASL_RecyclerV
 */
 
 
+    }
+
+    public ASL_RecyclerView_Adapter(Context context, ArrayList<AslModel> aslModelArrayList1, ASLRecyclerViewInterface aslRecyclerViewInterface,boolean isWordSearch,boolean isFamily) {
+        this.context = context;
+        this.context2 = context;
+        this.aslModelArrayList = aslModelArrayList1;
+        this.aslModelArrayList2 = aslModelArrayList1;
+        this.aslRecyclerViewInterface = aslRecyclerViewInterface;
+        this.isWordSearch = isWordSearch;
+        this.isFamily = isFamily;
 
     }
 
     @NonNull
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(this.context);
-        View view = inflater.inflate(R.layout.asl_card_view, parent, false);
+        View view;
+        if(isWordSearch && !isFamily )
+            view = inflater.inflate(R.layout.row_view, parent, false);
+        else if (isFamily) {
+            view = inflater.inflate(R.layout.family_row_view, parent, false);
+        } else
+            view = inflater.inflate(R.layout.asl_card_view, parent, false);
         return new MyViewHolder(view,this.aslRecyclerViewInterface,this.aslTextBeingSet);
     }
 

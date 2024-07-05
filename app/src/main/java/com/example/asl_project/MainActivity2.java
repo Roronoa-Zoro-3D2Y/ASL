@@ -82,6 +82,8 @@ public class MainActivity2 extends AppCompatActivity implements ASLRecyclerViewI
 
         recyclerView = findViewById(R.id.main_list);
 
+        search_close_icon = findViewById(R.id.searchClose);
+
         searchView = (SearchView)this.findViewById(R.id.searchView);
         searchView.clearFocus();
         home = findViewById(R.id.home_icon);
@@ -106,18 +108,26 @@ public class MainActivity2 extends AppCompatActivity implements ASLRecyclerViewI
         home.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity2.this, HomeScreen.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
             }
         });
-        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+        /*searchView.setOnCloseListener(new SearchView.OnCloseListener() {
             @Override
             public boolean onClose() {
                 InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(searchView.getWindowToken(),0);
+                if(getCurrentFocus()!=null)
+                    imm.hideSoftInputFromWindow(searchView.getWindowToken(),InputMethodManager.HIDE_NOT_ALWAYS);
                 return true;
             }
         });
-
+*/
+        search_close_icon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                hideKeyboard();
+            }
+        });
 //        updateDataBase();
         adapter1 = new ASL_RecyclerView_Adapter(MainActivity2.this,getAslModelArrayListAlpha(),this);
 //        adapter2 = new ASL_RecyclerView_Adapter(MainActivity2.this,getAslModelArrayListNumbers());
@@ -134,6 +144,10 @@ public class MainActivity2 extends AppCompatActivity implements ASLRecyclerViewI
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
+    public void hideKeyboard(){
+        InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(searchView.getWindowToken(),0);
+    }
     public ArrayList<AslModel> getAslModelArrayListAlpha() {
         aslModelArrayListAlpha.add( new AslModel(1, this.resourceID[0], "A"));
         aslModelArrayListAlpha.add( new AslModel(2, this.resourceID[1], "B"));
@@ -263,6 +277,7 @@ public class MainActivity2 extends AppCompatActivity implements ASLRecyclerViewI
             }
         }
         else{
+//            query = filterQuery(query);
             userSearch_words=false;
             Toast.makeText(MainActivity2.this," "+query,Toast.LENGTH_SHORT).show();
             ArrayList<ASL_RecyclerView_Adapter> adapterArrayList1 = new ArrayList<>();
@@ -272,6 +287,19 @@ public class MainActivity2 extends AppCompatActivity implements ASLRecyclerViewI
 
         }
     }
+
+    private String filterQuery(String query) {
+        String unfiltered = query;
+        int i=0,n;
+        while (unfiltered.charAt(i)!='\0'){
+            n = unfiltered.length();
+            if(unfiltered.charAt(i) == unfiltered.charAt(i+1))
+                unfiltered = unfiltered.substring(i+1,n);
+            i++;
+        }
+        return unfiltered;
+    }
+
 
     @Override
     public void OnItemClick(ArrayList<AslModel> aslDescriptionList,int pos) {
@@ -495,6 +523,38 @@ public class MainActivity2 extends AppCompatActivity implements ASLRecyclerViewI
 //        aslWordsModelArrayList.addAll(aslWordsModelList);
     }
 
+    public void OnItemClick(AslModel aslModel,int pos) {
+        Log.d("TAG1", "Working:"+pos);
+//        if(userSearch_words){
+//            Log.d("TAG3", ""+pos);
+//            int recyclerViewPos = asl_main_adapter.sendMainAdapterPos();
+//            Log.d("TEST2", " "+recyclerViewPos);
+//        }
+        if(!userSearch_words) {
+            Intent intent = new Intent(MainActivity2.this, PhotoDescription.class);
+            intent.putExtra("ASL_ALPHABET", aslModel.getAslAlphabet());
+            intent.putExtra("ASL_IMAGE", aslModel.getId() + "");
+            startActivity(intent);
+        }
+        else {
+            Log.d("btn_number", getRecyclerViewChildPos()+"");
+//            int temp = asl_main_adapter.sendMainAdapterPos();
+            int temp;
+            if(recyclerViewChildPos != -1){
+                temp = getRecyclerViewChildPos();
+                Log.d("TAG50", temp+"");
+            }
+            aslModel = adapterArrayList.get(getRecyclerViewChildPos()).aslModelArrayList.get(pos);
+
+            Intent intent = new Intent(MainActivity2.this, PhotoDescription.class);
+            intent.putExtra("ASL_ALPHABET", aslModel.getAslAlphabet());
+            intent.putExtra("ASL_IMAGE", aslModel.getId() + "");
+            startActivity(intent);
+
+        }
+    }
+}
+
     /*public ASL_RecyclerView_Adapter Searching2(String query) {
         ArrayList<AslModel> aslModelList = new ArrayList<>();
         ASL_RecyclerView_Adapter adapter = null;
@@ -622,35 +682,3 @@ public class MainActivity2 extends AppCompatActivity implements ASLRecyclerViewI
             startActivity(intent);
         }
     }*/
-
-    public void OnItemClick(AslModel aslModel,int pos) {
-        Log.d("TAG1", "Working:"+pos);
-//        if(userSearch_words){
-//            Log.d("TAG3", ""+pos);
-//            int recyclerViewPos = asl_main_adapter.sendMainAdapterPos();
-//            Log.d("TEST2", " "+recyclerViewPos);
-//        }
-        if(!userSearch_words) {
-            Intent intent = new Intent(MainActivity2.this, PhotoDescription.class);
-            intent.putExtra("ASL_ALPHABET", aslModel.getAslAlphabet());
-            intent.putExtra("ASL_IMAGE", aslModel.getId() + "");
-            startActivity(intent);
-        }
-        else {
-            Log.d("btn_number", getRecyclerViewChildPos()+"");
-//            int temp = asl_main_adapter.sendMainAdapterPos();
-            int temp;
-            if(recyclerViewChildPos != -1){
-                temp = getRecyclerViewChildPos();
-                Log.d("TAG50", temp+"");
-            }
-            aslModel = adapterArrayList.get(getRecyclerViewChildPos()).aslModelArrayList.get(pos);
-
-            Intent intent = new Intent(MainActivity2.this, PhotoDescription.class);
-            intent.putExtra("ASL_ALPHABET", aslModel.getAslAlphabet());
-            intent.putExtra("ASL_IMAGE", aslModel.getId() + "");
-            startActivity(intent);
-
-        }
-    }
-}

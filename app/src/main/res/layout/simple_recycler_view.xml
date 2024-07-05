@@ -23,7 +23,7 @@
             />
     </androidx.constraintlayout.widget.ConstraintLayout>
     <androidx.recyclerview.widget.RecyclerView
-        android:background="@color/green_fifth"
+        android:background="@color/asl_card_bg1"
         android:id="@+id/recyclerView_main_3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -7,8 +7,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -35,6 +37,8 @@ public class WordSearch extends AppCompatActivity implements ASLRecyclerViewInte
     ArrayList<AslModel> aslModelArrayListWords = new ArrayList<>();
     ArrayList<ASL_RecyclerView_Adapter> recyclerView_adapters = new ArrayList<>();
 
+
+
     asl_main_adapter asl_main_adapter;
     SearchView searchView;
     ImageView home;
@@ -44,12 +48,34 @@ public class WordSearch extends AppCompatActivity implements ASLRecyclerViewInte
     ASL_RecyclerView_Adapter adapter1;
     ASL_RecyclerView_Adapter adapter2;
     ASL_RecyclerView_Adapter adapter3;
+    String getListName;
     ASLHandler db_word = new ASLHandler(WordSearch.this);
-    int[] resourceIDWords = new int[]{R.drawable.asl_bored,R.drawable.asl_goodbye,R.drawable.asl_hello,
-            R.drawable.asl_help,R.drawable.asl_please,R.drawable.asl_sad,R.drawable.asl_sorry,
-            R.drawable.asl_stop,R.drawable.asl_thanks,R.drawable.asl_when,R.drawable.asl_where,
-            R.drawable.asl_which,R.drawable.asl_you_are_welcome
+
+    int[] resourceIDCommonWords = new int[]{
+            R.drawable.asl_hello,R.drawable.asl_goodbye,R.drawable.asl_you_are_welcome,
+            R.drawable.asl_please,R.drawable.asl_help,R.drawable.asl_thanks,
+            R.drawable.asl_stop
     };
+    int[] resourceIDFruits = new int[]{
+            R.drawable.asl_apple,R.drawable.asl_banana,R.drawable.asl_berry,
+            R.drawable.asl_grapes,R.drawable.asl_peach,
+    };
+
+    int[] resourceIDVegetables = new int[]{
+            R.drawable.asl_lettuce,R.drawable.asl_corn,R.drawable.asl_peas,
+            R.drawable.asl_carrot
+    };
+
+    int[] resourceIDFamily = new int[]{
+            R.drawable.asl_whole_family,R.drawable.asl_daddy,R.drawable.asl_mother,
+            R.drawable.asl_grandmother,R.drawable.asl_grandfather,R.drawable.asl_uncle,
+            R.drawable.asl_aunt,R.drawable.asl_cousin,R.drawable.asl_sister,
+            R.drawable.asl_brother,R.drawable.asl_baby
+    };
+
+    private boolean isFamily = false;
+    ImageView search_close_icon;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +84,8 @@ public class WordSearch extends AppCompatActivity implements ASLRecyclerViewInte
 
         recyclerView = findViewById(R.id.word_main_list);
 
+        search_close_icon = findViewById(R.id.searchClose);
+
         searchView = findViewById(R.id.word_searchView);
         searchView.clearFocus();
         home = findViewById(R.id.word_home_icon);
@@ -65,11 +93,12 @@ public class WordSearch extends AppCompatActivity implements ASLRecyclerViewInte
             public boolean onQueryTextSubmit(String query) {
                 searchView.clearFocus();
 //                Searching2(query,adapter1);
-                wordSearch(query);
+//                wordSearch(query);
                 return true;
             }
 
             public boolean onQueryTextChange(String newText) {
+                wordSearch(newText);
                 return true;
             }
         });
@@ -79,20 +108,36 @@ public class WordSearch extends AppCompatActivity implements ASLRecyclerViewInte
                 startActivity(intent);
             }
         });
+        search_close_icon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                hideKeyboard();
+            }
+        });
+
+        //getting the btn on which the user has clicked
+        getListName = getIntent().getStringExtra("Word List Clicked");
+        assert getListName != null;
+        if(getListName.equalsIgnoreCase("FAMILY"))
+            isFamily = true;
+        Log.d("TAG", "onCreate: "+getListName);
+
 
 //        updateDataBase();
-        adapter3 = new ASL_RecyclerView_Adapter(WordSearch.this,getAslModelArrayListWords(),this);
-
+        adapter3 = new ASL_RecyclerView_Adapter(WordSearch.this,setAslModelArrayListWords(getListName),this,true,isFamily);
         recyclerView_adapters.add(adapter3);
 
-        asl_main_adapter = new asl_main_adapter(WordSearch.this,recyclerView_adapters,this);
+        asl_main_adapter = new asl_main_adapter(WordSearch.this,recyclerView_adapters,this,true);
 //        asl_main_adapter = new asl_main_adapter(WordSearch.this,recyclerView_adapters,this);
         recyclerView.setAdapter(asl_main_adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(WordSearch.this));
 
     }
 
-
+    public void hideKeyboard(){
+        InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(searchView.getWindowToken(),0);
+    }
     public void Searching(String text,ASL_RecyclerView_Adapter recyclerViewAdapter) {
         ArrayList<AslModel> aslModelList = new ArrayList<>();
 
@@ -153,13 +198,158 @@ public class WordSearch extends AppCompatActivity implements ASLRecyclerViewInte
         return adapter;
     }
 
-    public void wordSearch(String query){
+
+    public void wordSearch(String newText){
         ArrayList<AslModel> aslModels = new ArrayList<>();
-        ArrayList<String> words = new ArrayList<String>();
-            ArrayList<ASL_RecyclerView_Adapter> adapterArrayList1 = new ArrayList<>();
-            adapterArrayList1.add(searchAndSetAdapter(query));
-            asl_main_adapter.setQueryRecyclerViews(adapterArrayList1);
+        ArrayList<ASL_RecyclerView_Adapter> adapterArrayList1 = new ArrayList<>();
+        for(AslModel i:aslModelArrayListWords) {
+            if (i.getAslAlphabet().toLowerCase().contains(newText.toLowerCase())) {
+                aslModels.add(i);
+            }
+        }
+        if(aslModels.isEmpty()){
+            Toast.makeText(this,"Bro itz Empty!!",Toast.LENGTH_SHORT).show();
+            }
+        else{
+            adapterArrayList1.add(new ASL_RecyclerView_Adapter(WordSearch.this,aslModels,this));
+            }
+        asl_main_adapter.setQueryRecyclerViews(adapterArrayList1);
     }
+
+
+    public ArrayList<AslModel> setAslModelArrayListWords(String getListName) {
+        ArrayList<AslModel> modelArrayList = new ArrayList<>();
+
+        switch (getListName) {
+            case "family":
+                isFamily = true;
+                modelArrayList = getFamilyList();
+                break;
+            case "fruits":
+                modelArrayList = getFruitsList();
+                break;
+            case "vegetables":
+                modelArrayList = getVegetablesList();
+                break;
+            case "common words":
+                modelArrayList = getCommonWordsList();
+                break;
+        }
+
+        return modelArrayList;
+    }
+
+
+    public ArrayList<AslModel> getCommonWordsList() {
+
+        aslModelArrayListWords.clear();
+
+        aslModelArrayListWords.add(new AslModel(1, resourceIDCommonWords[0], "HELLO"));
+        aslModelArrayListWords.add(new AslModel(2, resourceIDCommonWords[1], "GOODBYE"));
+        aslModelArrayListWords.add(new AslModel(3, resourceIDCommonWords[2], "You Are Welcome/WELCOME"));
+        aslModelArrayListWords.add(new AslModel(4, resourceIDCommonWords[3], "PLEASE"));
+        aslModelArrayListWords.add(new AslModel(5, resourceIDCommonWords[4], "HELP"));
+        aslModelArrayListWords.add(new AslModel(6, resourceIDCommonWords[5], "THANKS"));
+        aslModelArrayListWords.add(new AslModel(7, resourceIDCommonWords[6], "STOP"));
+
+
+        return aslModelArrayListWords;
+    }
+    public ArrayList<AslModel> getFruitsList() {
+
+        aslModelArrayListWords.clear();
+
+        aslModelArrayListWords.add(new AslModel(1, resourceIDFruits[0], "APPLE"));
+        aslModelArrayListWords.add(new AslModel(2, resourceIDFruits[1], "BANANA"));
+        aslModelArrayListWords.add(new AslModel(3, resourceIDFruits[2], "BERRY"));
+        aslModelArrayListWords.add(new AslModel(4, resourceIDFruits[3], "GRAPES"));
+        aslModelArrayListWords.add(new AslModel(5, resourceIDFruits[4], "PEACH"));
+
+        return aslModelArrayListWords;
+    }
+    public ArrayList<AslModel> getVegetablesList() {
+
+        aslModelArrayListWords.clear();
+
+        aslModelArrayListWords.add(new AslModel(1, resourceIDVegetables[0], "LETTUCE"));
+        aslModelArrayListWords.add(new AslModel(2, resourceIDVegetables[1], "CORN"));
+        aslModelArrayListWords.add(new AslModel(3, resourceIDVegetables[2], "PEAS"));
+        aslModelArrayListWords.add(new AslModel(4, resourceIDVegetables[3], "CARROT"));
+
+
+        return aslModelArrayListWords;
+    }
+    public ArrayList<AslModel> getFamilyList() {
+
+        aslModelArrayListWords.clear();
+
+        aslModelArrayListWords.add(new AslModel(1, resourceIDFamily[0], "FAMILY"));
+        aslModelArrayListWords.add(new AslModel(2, resourceIDFamily[1], "FATHER"));
+        aslModelArrayListWords.add(new AslModel(3, resourceIDFamily[2], "MOTHER"));
+        aslModelArrayListWords.add(new AslModel(4, resourceIDFamily[3], "GRANDMOTHER"));
+        aslModelArrayListWords.add(new AslModel(5, resourceIDFamily[4], "GRANDFATHER"));
+        aslModelArrayListWords.add(new AslModel(6, resourceIDFamily[5], "UNCLE"));
+        aslModelArrayListWords.add(new AslModel(7, resourceIDFamily[6], "AUNT"));
+        aslModelArrayListWords.add(new AslModel(8, resourceIDFamily[7], "COUSIN"));
+        aslModelArrayListWords.add(new AslModel(9, resourceIDFamily[8], "SISTER"));
+        aslModelArrayListWords.add(new AslModel(10,resourceIDFamily[9], "BROTHER"));
+        aslModelArrayListWords.add(new AslModel(11,resourceIDFamily[10], "BABY"));
+
+        return aslModelArrayListWords;
+    }
+
+
+
+    @Override
+    public void onRecyclerViewClick(ASL_RecyclerView_Adapter asl_recyclerView_adapters) {
+
+    }
+
+    /*@Override
+    public void OnItemClick(AslModel aslModel, int pos) {
+
+    }*/
+
+    @Override
+    public void OnItemClick(ArrayList<AslModel> aslModelArrayList, int pos) {
+        AslModel aslModel = aslModelArrayList.get(pos);
+        Intent intent = new Intent(WordSearch.this,WordDescription.class);
+        intent.putExtra("ASL_ALPHABET", aslModel.getAslAlphabet());
+        intent.putExtra("ASL_IMAGE", aslModel.getId() + "");
+        intent.putExtra("WORD_LIST",getListName);
+        startActivity(intent);
+    }
+
+    @Override
+    public void OnRecyclerViewClick(int posClicked, int childPos) {
+
+    }
+      /*int[] resourceIDWords = new int[]{R.drawable.asl_bored,R.drawable.asl_goodbye,R.drawable.asl_hello,
+            R.drawable.asl_help,R.drawable.asl_please,R.drawable.asl_sad,R.drawable.asl_sorry,
+            R.drawable.asl_stop,R.drawable.asl_thanks,R.drawable.asl_when,R.drawable.asl_where,
+            R.drawable.asl_which,R.drawable.asl_you_are_welcome
+    };*/
+
+     /*public ArrayList<AslModel> getAslModelArrayListWords() {
+
+        aslModelArrayListWords.add(new AslModel(1, resourceIDWords[0], "BORED"));
+        aslModelArrayListWords.add(new AslModel(2, resourceIDWords[1], "GOODBYE"));
+        aslModelArrayListWords.add(new AslModel(3, resourceIDWords[2], "HELLO"));
+        aslModelArrayListWords.add(new AslModel(4, resourceIDWords[3], "HELP"));
+        aslModelArrayListWords.add(new AslModel(5, resourceIDWords[4], "PLEASE"));
+        aslModelArrayListWords.add(new AslModel(6,resourceIDWords[5], "SAD"));
+        aslModelArrayListWords.add(new AslModel(7, resourceIDWords[6], "SORRY"));
+        aslModelArrayListWords.add(new AslModel(8, resourceIDWords[7], "STOP"));
+        aslModelArrayListWords.add(new AslModel(9, resourceIDWords[8], "THANKS"));
+        aslModelArrayListWords.add(new AslModel(10,resourceIDWords[9], "WHEN"));
+        aslModelArrayListWords.add(new AslModel(11,resourceIDWords[10], "WHERE"));
+        aslModelArrayListWords.add(new AslModel(12,resourceIDWords[11], "WHICH"));
+        aslModelArrayListWords.add(new AslModel(13,resourceIDWords[12], "You Are Welcome/WELCOME"));
+
+        return aslModelArrayListWords;
+    }*/
+
+    /*
     public void updateDataBase(){
 //        db.deleteTABLE();
 
@@ -197,46 +387,14 @@ public class WordSearch extends AppCompatActivity implements ASLRecyclerViewInte
 //        List<AslModel> aslWordsModelList = db_words.getAllAslMap();
 //        aslWordsModelArrayList.addAll(aslWordsModelList);
     }
+*/
 
-    public ArrayList<AslModel> getAslModelArrayListWords() {
-
-        aslModelArrayListWords.add(new AslModel(1, resourceIDWords[0], "BORED"));
-        aslModelArrayListWords.add(new AslModel(2, resourceIDWords[1], "GOODBYE"));
-        aslModelArrayListWords.add(new AslModel(3, resourceIDWords[2], "HELLO"));
-        aslModelArrayListWords.add(new AslModel(4, resourceIDWords[3], "HELP"));
-        aslModelArrayListWords.add(new AslModel(5, resourceIDWords[4], "PLEASE"));
-        aslModelArrayListWords.add(new  AslModel(6,resourceIDWords[5], "SAD"));
-        aslModelArrayListWords.add(new AslModel(7, resourceIDWords[6], "SORRY"));
-        aslModelArrayListWords.add(new AslModel(8, resourceIDWords[7], "STOP"));
-        aslModelArrayListWords.add(new AslModel(9, resourceIDWords[8], "THANKS"));
-        aslModelArrayListWords.add(new AslModel(10,resourceIDWords[9], "WHEN"));
-        aslModelArrayListWords.add(new AslModel(11,resourceIDWords[10], "WHERE"));
-        aslModelArrayListWords.add(new AslModel(12,resourceIDWords[11], "WHICH"));
-        aslModelArrayListWords.add(new AslModel(13,resourceIDWords[12], "You Are Welcome/WELCOME"));
-
-        return aslModelArrayListWords;
-    }
-
-
-
-    @Override
-    public void onRecyclerViewClick(ASL_RecyclerView_Adapter asl_recyclerView_adapters) {
-
-    }
-
-    /*@Override
-    public void OnItemClick(AslModel aslModel, int pos) {
-
+      /*public void wordSearch(String query){
+        ArrayList<AslModel> aslModels = new ArrayList<>();
+        ArrayList<String> words = new ArrayList<String>();
+            ArrayList<ASL_RecyclerView_Adapter> adapterArrayList1 = new ArrayList<>();
+            adapterArrayList1.add(searchAndSetAdapter(query));
+            asl_main_adapter.setQueryRecyclerViews(adapterArrayList1);
     }*/
-
-    @Override
-    public void OnItemClick(ArrayList<AslModel> aslModelArrayList, int pos) {
-
-    }
-
-    @Override
-    public void OnRecyclerViewClick(int posClicked, int childPos) {
-
-    }
 
 }

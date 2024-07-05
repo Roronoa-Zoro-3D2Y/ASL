@@ -18,6 +18,7 @@ import com.example.asl_project.ASLRecyclerViewInterface;
 import com.example.asl_project.MainActivity2;
 import com.example.asl_project.Model.AslModel;
 import com.example.asl_project.R;
+import com.example.asl_project.WordSearch;
 
 import java.util.ArrayList;
 
@@ -25,6 +26,7 @@ public class asl_main_adapter extends RecyclerView.Adapter<asl_main_adapter.MyVi
     Context context;
     static Context context2;
     MainActivity2 mainActivity2;
+    boolean wordSearch;
     View view2;
     public static int childPosition;
     int positionRecyclerChildView;
@@ -41,13 +43,21 @@ public class asl_main_adapter extends RecyclerView.Adapter<asl_main_adapter.MyVi
         this.asl_recyclerView_adapters2 = aslModelArrayList1;
         this.aslRecyclerViewInterface= aslRecyclerViewInterface;
     }
+    public asl_main_adapter(Context context, ArrayList<ASL_RecyclerView_Adapter> aslModelArrayList1,ASLRecyclerViewInterface aslRecyclerViewInterface,boolean wordSearch) {
+        this.context = context;
+        this.context2 = context;
+        this.asl_recyclerView_adapters = aslModelArrayList1;
+        this.asl_recyclerView_adapters2 = aslModelArrayList1;
+        this.aslRecyclerViewInterface= aslRecyclerViewInterface;
+        this.wordSearch = wordSearch;
+    }
 
     @NonNull
     @Override
     public asl_main_adapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.activity_main3,parent,false);
-        view2 = inflater.inflate(R.layout.activity_main3,parent,false);
+
         return new MyViewHolder(view,this.aslRecyclerViewInterface);
     }
 
@@ -55,6 +65,11 @@ public class asl_main_adapter extends RecyclerView.Adapter<asl_main_adapter.MyVi
     public void onBindViewHolder(@NonNull asl_main_adapter.MyViewHolder holder, int position) {
         holder.recyclerViewChild.setAdapter(asl_recyclerView_adapters.get(position));
         holder.recyclerViewChild.setLayoutManager(new GridLayoutManager(context,2));
+
+        if(wordSearch){
+            holder.recyclerViewChild.setAdapter(asl_recyclerView_adapters.get(position));
+            holder.recyclerViewChild.setLayoutManager(new GridLayoutManager(context,1));
+        }
         if(position == 0)
             holder.separator.setVisibility(View.INVISIBLE);
         childPosition = holder.childPosition2;

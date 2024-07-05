@@ -15,10 +15,12 @@
         android:layout_alignParentTop="true"
         android:layout_centerInParent="true"
         android:layout_marginTop="50dp"
+        android:elevation="10dp"
         android:fontFamily="@font/empire"
         android:text="@string/word_list_heading"
         android:textColor="@color/green_main"
-        android:textSize="50sp" />
+        android:textSize="50sp"
+        android:translationZ="20dp" />
 
 
     <GridLayout
@@ -33,16 +35,16 @@
         android:layout_marginVertical="20dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
+        android:padding="10dp"
         >
-
-        <androidx.cardview.widget.CardView
+        <!--<androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_rowWeight="1"
-            android:elevation="100dp"
+            android:elevation="12dp"
+            app:cardMaxElevation="100dp"
             app:cardCornerRadius="30dp"
             android:layout_margin="10dp"
             app:cardBackgroundColor="@color/word_list_1"
-
             />
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
@@ -68,23 +70,74 @@
             android:layout_margin="10dp"
             app:cardBackgroundColor="@color/word_list_4"
             />
-            
-
-        <!--<androidx.appcompat.widget.AppCompatButton
+-->
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/common_words_btn"
+            android:layout_width="match_parent"
             android:layout_rowWeight="1"
-            android:text="@string/word_list_one" />
+            android:text="@string/word_list_one"
+            android:background="@drawable/words_card_1_bg"
+            android:shadowColor="@color/white"
+            android:shadowRadius="10"
+            android:elevation="30dp"
+            android:translationZ="30dp"
+            android:layout_margin="10dp"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:fontFamily="@font/songer_semiexpanded_extrabold"
+            android:textColor="@color/card_palette8"
+            />
 
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/fruits_btn"
+            android:layout_width="match_parent"
             android:layout_rowWeight="1"
-            android:text="@string/word_list_two" />
+            android:text="@string/word_list_two"
+            android:background="@drawable/words_card_2_bg"
+            android:shadowColor="@color/white"
+            android:shadowRadius="10"
+            android:elevation="30dp"
+            android:translationZ="30dp"
+            android:layout_margin="10dp"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:fontFamily="@font/songer_semiexpanded_extrabold"
+            android:textColor="@color/card_palette9"
+            />
 
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/vegetables_btn"
+            android:layout_width="match_parent"
             android:layout_rowWeight="1"
-            android:text="@string/word_list_three" />
+            android:text="@string/word_list_three"
+            android:background="@drawable/words_card_3_bg"
+            android:shadowColor="@color/white"
+            android:shadowRadius="10"
+            android:elevation="30dp"
+            android:translationZ="30dp"
+            android:layout_margin="10dp"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:fontFamily="@font/songer_semiexpanded_extrabold"
+            android:textColor="@color/card_palette9"
+            />
 
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/family_btn"
+            android:layout_width="match_parent"
             android:layout_rowWeight="1"
-            android:text="@string/word_list_four" />-->
+            android:text="@string/word_list_four"
+            android:background="@drawable/words_card_4_bg"
+            android:shadowColor="@color/white"
+            android:shadowRadius="10"
+            android:elevation="30dp"
+            android:translationZ="30dp"
+            android:layout_margin="10dp"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:fontFamily="@font/songer_semiexpanded_extrabold"
+            android:textColor="@color/card_palette9"
+            />
 
     </GridLayout>
 </RelativeLayout>

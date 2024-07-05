@@ -29,7 +29,7 @@
          android:layout_height="wrap_content"
          android:layout_centerHorizontal="true"
 
-         android:background="@color/green_third"
+         android:background="@color/asl_card_bg1"
         />
 
      <!--<androidx.appcompat.widget.AppCompatButton

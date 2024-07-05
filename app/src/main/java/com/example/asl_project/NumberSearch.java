@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -42,6 +43,7 @@ public class NumberSearch extends AppCompatActivity implements ASLRecyclerViewIn
     ASL_RecyclerView_Adapter adapter1;
     ASL_RecyclerView_Adapter adapter2;
     ASL_RecyclerView_Adapter adapter3;
+    ImageView search_close_icon;
     ASLHandler db_num = new ASLHandler(NumberSearch.this);
     int[] resourceIDNumbers = new int[]{R.drawable.one,R.drawable.two,R.drawable.three,R.drawable.four,
             R.drawable.five,R.drawable.six,R.drawable.seven,R.drawable.eight,R.drawable.nine,
@@ -54,6 +56,7 @@ public class NumberSearch extends AppCompatActivity implements ASLRecyclerViewIn
         setContentView(R.layout.activity_number_search);
 
         recyclerView = findViewById(R.id.num_main_list);
+        search_close_icon = findViewById(R.id.searchClose);
 
         searchView = findViewById(R.id.num_searchView);
         searchView.clearFocus();
@@ -76,6 +79,12 @@ public class NumberSearch extends AppCompatActivity implements ASLRecyclerViewIn
                 startActivity(intent);
             }
         });
+        search_close_icon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                hideKeyboard();
+            }
+        });
 
 //        updateDataBase();
         adapter2 = new ASL_RecyclerView_Adapter(NumberSearch.this,getAslModelArrayListNumbers(),this);
@@ -89,6 +98,10 @@ public class NumberSearch extends AppCompatActivity implements ASLRecyclerViewIn
 
     }
 
+    public void hideKeyboard(){
+        InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(searchView.getWindowToken(),0);
+    }
 
     public void Searching(String text,ASL_RecyclerView_Adapter recyclerViewAdapter) {
         ArrayList<AslModel> aslModelList = new ArrayList<>();

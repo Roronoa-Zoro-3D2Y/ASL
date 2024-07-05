@@ -30,6 +30,7 @@
 <!--    <color name="asl_bg">#f8cadc</color>-->
 <!--    <color name="asl_text">#61464D</color>-->
     <color name="asl_text">#FFFFFF</color>
+    <color name="asl_text1">#801C9E</color>
 <!--    <color name="asl_card_bg">#e5d576</color>-->
 <!--    <color name="asl_card_bg">#f8cadc</color>-->
    <!-- <color name="asl_card_bg">#7291F9</color>-->
@@ -83,8 +84,14 @@
     <color name="word_list_3">#40679E</color>
     <color name="word_list_4">#1B3C73</color>-->
 
-    <color name="asl_card_bg">#B7D56C</color>
+    <!--<color name="asl_card_bg">#B7D56C</color>
     <color name="asl_card_bg1">#baebd6</color>
+    <color name="asl_card_bg2">#ebe6ba</color>
+    <color name="asl_card_bg3">#ebbacf</color>
+    <color name="asl_card_bg4">#ebe6ba</color>-->
+
+    <color name="asl_card_bg">#B7D56C</color>
+    <color name="asl_card_bg1">#d9e4f9</color>
     <color name="asl_card_bg2">#ebe6ba</color>
     <color name="asl_card_bg3">#ebbacf</color>
     <color name="asl_card_bg4">#ebe6ba</color>
@@ -105,5 +112,6 @@
     <color name="card_palette23">#ff6361</color>
     <color name="card_palette24">#ff6361</color>
     <color name="card_palette25">#ff6361</color>
+
 
 </resources>

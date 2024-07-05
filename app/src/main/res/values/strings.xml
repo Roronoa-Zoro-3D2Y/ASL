@@ -15,6 +15,17 @@
     <string name="asl_a_des_1">Make a fist with all fingers curled tightly into your palm. </string>
     <string name="asl_a_des_2">Place your thumb against the side of your index finger, resting along the outer edge.</string>
 
+    <string name="asl_word_description_heading">ASL WORDS</string>
+    <string name="asl_word_photo_title">BERRY</string>
+    <string name="asl_word_hand">Hand Shape :</string>
+    <string name="asl_word_location">Location :</string>
+    <string name="asl_word_movement">Movement :</string>
+    <string name="asl_word_expression">Face Experssion :</string>
+    <string name="asl_word_hand_dscrp">Non-dominant hand in the "S" handshape (fist),dominant hand in the "F" handshape"\n"(thumb and index finger touching to form a circle, other fingers extended). </string>
+    <string name="asl_word_location_dscrp">In front of your body.  </string>
+    <string name="asl_word_movement_dscrp">Place the "F" handshape on the tip of the non-dominant hand’s pinky and twist the "F" handshape slightly.</string>
+    <string name="asl_word_expression_dscrp"> Neutral. </string>
+
     <string name="under_construction_head">Sorry about That</string>
     <string name="uc_img_head">MODULE</string>
     <string name="uc_back_button">BACK</string>
