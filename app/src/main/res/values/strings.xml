@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ASL_project</string>
+    <string name="app_name">Text To ASL</string>
     <string name="test">TESTING</string>
     <string name="seach_view">Search Here...</string>
     <string name="home_heading1">Welcome To</string>
@@ -20,7 +20,7 @@
     <string name="asl_word_hand">Hand Shape :</string>
     <string name="asl_word_location">Location :</string>
     <string name="asl_word_movement">Movement :</string>
-    <string name="asl_word_expression">Face Experssion :</string>
+    <string name="asl_word_expression">Face"\n"Experssion :</string>
     <string name="asl_word_hand_dscrp">Non-dominant hand in the "S" handshape (fist),dominant hand in the "F" handshape"\n"(thumb and index finger touching to form a circle, other fingers extended). </string>
     <string name="asl_word_location_dscrp">In front of your body.  </string>
     <string name="asl_word_movement_dscrp">Place the "F" handshape on the tip of the non-dominant hand’s pinky and twist the "F" handshape slightly.</string>

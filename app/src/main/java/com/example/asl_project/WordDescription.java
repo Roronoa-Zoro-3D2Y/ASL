@@ -69,6 +69,7 @@ public class WordDescription extends AppCompatActivity {
 
         assert asl_word_list != null;
         if(asl_word_list.equals("family")) {
+            iv_asl_photo.setVisibility(View.INVISIBLE);
             iv_asl_photo = findViewById(R.id.asl_photo_family);
             iv_asl_photo.setVisibility(View.VISIBLE);
         }

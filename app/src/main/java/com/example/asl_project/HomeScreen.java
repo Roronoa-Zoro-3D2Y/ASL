@@ -70,9 +70,10 @@ public class HomeScreen extends AppCompatActivity {
                 back.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Intent intent = new Intent(HomeScreen.this,HomeScreen.class);
+                        /*Intent intent = new Intent(HomeScreen.this,HomeScreen.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(intent);
+                        startActivity(intent);*/
+                        underDevelopment.dismiss();
                     }
                 });
 

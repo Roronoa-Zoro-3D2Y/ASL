@@ -78,14 +78,14 @@
             android:text="@string/word_list_one"
             android:background="@drawable/words_card_1_bg"
             android:shadowColor="@color/white"
-            android:shadowRadius="10"
+            android:shadowRadius="1"
             android:elevation="30dp"
             android:translationZ="30dp"
             android:layout_margin="10dp"
             android:textSize="24sp"
             android:textStyle="bold"
             android:fontFamily="@font/songer_semiexpanded_extrabold"
-            android:textColor="@color/card_palette8"
+            android:textColor="@color/card_palette9"
             />
 
         <androidx.appcompat.widget.AppCompatButton

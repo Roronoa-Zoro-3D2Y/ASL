@@ -44,7 +44,6 @@ public class NumberSearch extends AppCompatActivity implements ASLRecyclerViewIn
     ASL_RecyclerView_Adapter adapter2;
     ASL_RecyclerView_Adapter adapter3;
     ImageView search_close_icon;
-    ASLHandler db_num = new ASLHandler(NumberSearch.this);
     int[] resourceIDNumbers = new int[]{R.drawable.one,R.drawable.two,R.drawable.three,R.drawable.four,
             R.drawable.five,R.drawable.six,R.drawable.seven,R.drawable.eight,R.drawable.nine,
             R.drawable.zero
@@ -126,13 +125,13 @@ public class NumberSearch extends AppCompatActivity implements ASLRecyclerViewIn
         ASL_RecyclerView_Adapter adapter = null;
         for(int j = 0; j < query.length();j++) {
             char letter = Character.toLowerCase(query.charAt(j));
-            for(AslModel i: aslNumberArrayList) {
+            for(AslModel i: aslModelArrayListNumbers) {
                 char aslLetter = Character.toLowerCase(i.getAslAlphabet().charAt(0));
                 if (aslLetter == letter) {
                     aslModelList.add(i);
                 }
 
-                if (aslNumberArrayList.isEmpty()) {
+                if (aslModelArrayListNumbers.isEmpty()) {
                     Toast.makeText(NumberSearch.this, "Please Enter", Toast.LENGTH_SHORT).show();
                 } else {
                     adapter = new ASL_RecyclerView_Adapter(NumberSearch.this,aslModelList,this);
@@ -189,6 +188,7 @@ public class NumberSearch extends AppCompatActivity implements ASLRecyclerViewIn
             asl_main_adapter.setQueryRecyclerViews(adapterArrayList1);
         }
     }
+/*
     public void updateDataBase(){
 //        db.deleteTABLE();
 
@@ -223,6 +223,7 @@ public class NumberSearch extends AppCompatActivity implements ASLRecyclerViewIn
 //        List<AslModel> aslWordsModelList = db_words.getAllAslMap();
 //        aslWordsModelArrayList.addAll(aslWordsModelList);
     }
+*/
 
     public ArrayList<AslModel> getAslModelArrayListNumbers() {
         AslModel one = new AslModel(1,resourceIDNumbers[0], "1");

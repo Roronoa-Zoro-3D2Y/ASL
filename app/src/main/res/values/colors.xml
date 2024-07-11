@@ -29,7 +29,7 @@
     <color name="asl_bg">#E5DAF1</color>
 <!--    <color name="asl_bg">#f8cadc</color>-->
 <!--    <color name="asl_text">#61464D</color>-->
-    <color name="asl_text">#FFFFFF</color>
+    <color name="asl_text">#FDFDFD</color>
     <color name="asl_text1">#801C9E</color>
 <!--    <color name="asl_card_bg">#e5d576</color>-->
 <!--    <color name="asl_card_bg">#f8cadc</color>-->
@@ -77,9 +77,9 @@
    <!-- <color name="word_list_1">#F23557</color>
     <color name="word_list_2">#F0D43A</color>
     <color name="word_list_3">#22B2DA</color>
-    <color name="word_list_4">#3B4A6B</color>
--->
-    <!--<color name="word_list_1">#FF407D</color>
+    <color name="word_list_4">#3B4A6B</color>-->
+
+  <!--  <color name="word_list_1">#FF407D</color>
     <color name="word_list_2">#FFCAD4</color>
     <color name="word_list_3">#40679E</color>
     <color name="word_list_4">#1B3C73</color>-->

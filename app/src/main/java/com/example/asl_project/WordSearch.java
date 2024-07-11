@@ -49,7 +49,6 @@ public class WordSearch extends AppCompatActivity implements ASLRecyclerViewInte
     ASL_RecyclerView_Adapter adapter2;
     ASL_RecyclerView_Adapter adapter3;
     String getListName;
-    ASLHandler db_word = new ASLHandler(WordSearch.this);
 
     int[] resourceIDCommonWords = new int[]{
             R.drawable.asl_hello,R.drawable.asl_goodbye,R.drawable.asl_you_are_welcome,

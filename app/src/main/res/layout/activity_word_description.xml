@@ -18,21 +18,22 @@
         app:layout_constraintBottom_toTopOf="@id/asl_photo_container"
         android:text="@string/asl_word_description_heading"
         android:textSize="40sp"
-        android:textColor="#005178"
+        android:textColor="@color/main_second"
         android:textStyle="bold"
         android:fontFamily="@font/alfaslaboneregular"
         />
+
+<!--    android:textColor="#005178"-->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/asl_photo_container"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@id/asl_photo_dscrp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/asl_description_heading"
-        app:layout_constraintDimensionRatio="1:1"
-        app:layout_constraintWidth_percent="0.65"
-
+        android:background="@color/white"
+        app:layout_constraintHeight_percent="0.4"
         >
 
         <ImageView
@@ -46,7 +47,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintWidth_percent="0.52"
+            app:layout_constraintWidth_percent="0.4"
             app:layout_constraintBottom_toTopOf="@id/asl_photo_title"
             />
         <ImageView
@@ -72,7 +73,7 @@
             android:layout_marginStart="10dp"
             android:text="@string/asl_word_photo_title"
             android:textSize="16pt"
-            android:textColor="#0074ab"
+           android:textColor="@color/main_first"
             android:textAlignment="center"
             app:layout_constraintTop_toBottomOf="@id/asl_photo"
             app:layout_constraintEnd_toEndOf="parent"
@@ -81,7 +82,7 @@
             android:fontFamily="@font/gollie"
 
             />
-
+<!--        android:textColor="#0074ab"-->
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
@@ -103,15 +104,16 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:background="#bfeaff"
-            android:padding="10dp"
+            android:padding="15dp"
             android:stretchColumns="0,1">
-
+<!--            android:background="#bfeaff"-->
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:gravity="center">
+                android:gravity="center"
+                android:padding="5dp"
+                >
 
                 <TextView
                     android:layout_width="match_parent"
@@ -136,7 +138,9 @@
                     android:gravity="fill_vertical"
                     android:text="@string/asl_word_hand_dscrp"
                     android:textColor="@color/black"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:layout_margin="5dp"
+                    />
             </TableRow>
 
             <TableRow
@@ -167,7 +171,9 @@
                     android:gravity="fill_vertical"
                     android:text="@string/asl_word_location_dscrp"
                     android:textColor="@color/black"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:layout_margin="5dp"
+                    />
             </TableRow>
 
             <TableRow
@@ -195,12 +201,13 @@
                     android:layout_height="match_parent"
                     android:layout_column="1"
                     android:layout_weight="1"
-
                     android:fontFamily="@font/roboto_regular"
                     android:gravity="fill_vertical"
                     android:text="@string/asl_word_movement_dscrp"
                     android:textColor="@color/black"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:layout_margin="5dp"
+                    />
             </TableRow>
 
             <TableRow
@@ -216,6 +223,7 @@
                     android:fontFamily="@font/teen_bold"
                     android:gravity="center"
                     android:text="@string/asl_word_expression"
+                    android:lines="2"
                     android:textColor="@color/black"
                     android:textSize="16sp"
                     android:textStyle="bold"
@@ -232,7 +240,9 @@
                     android:gravity="fill_vertical"
                     android:text="@string/asl_word_expression_dscrp"
                     android:textColor="@color/black"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:layout_margin="5dp"
+                    />
             </TableRow>
 
 
