@@ -59,7 +59,7 @@
             android:fontFamily="@font/simply_rounded_bold"
             android:textSize="30sp"
             android:textStyle="bold"
-            android:textColor="@color/green_fourth"
+            android:textColor="@color/card_palette10"
             android:textAllCaps="true"
             />
     </androidx.constraintlayout.widget.ConstraintLayout>

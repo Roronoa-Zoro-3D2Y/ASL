@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".NumberSearch"
-    android:background="@color/green_third"
+    android:background="@color/green_seventh"
     >
 
     <androidx.constraintlayout.widget.ConstraintLayout

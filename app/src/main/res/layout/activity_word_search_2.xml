@@ -82,9 +82,8 @@
             android:elevation="30dp"
             android:translationZ="30dp"
             android:layout_margin="10dp"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:fontFamily="@font/songer_semiexpanded_extrabold"
+            android:textSize="30sp"
+            android:fontFamily="@font/antipasto_bold"
             android:textColor="@color/card_palette9"
             />
 
@@ -99,9 +98,8 @@
             android:elevation="30dp"
             android:translationZ="30dp"
             android:layout_margin="10dp"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:fontFamily="@font/songer_semiexpanded_extrabold"
+            android:textSize="30sp"
+            android:fontFamily="@font/antipasto_bold"
             android:textColor="@color/card_palette9"
             />
 
@@ -116,9 +114,8 @@
             android:elevation="30dp"
             android:translationZ="30dp"
             android:layout_margin="10dp"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:fontFamily="@font/songer_semiexpanded_extrabold"
+            android:textSize="30sp"
+            android:fontFamily="@font/antipasto_bold"
             android:textColor="@color/card_palette9"
             />
 
@@ -133,9 +130,8 @@
             android:elevation="30dp"
             android:translationZ="30dp"
             android:layout_margin="10dp"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:fontFamily="@font/songer_semiexpanded_extrabold"
+            android:textSize="30sp"
+            android:fontFamily="@font/antipasto_bold"
             android:textColor="@color/card_palette9"
             />
 

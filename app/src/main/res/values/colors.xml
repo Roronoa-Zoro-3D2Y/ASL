@@ -37,7 +37,7 @@
 <!--    <color name="asl_card_bg">#99CC66</color>-->
 <!--    <color name="asl_card_bg">#95CC55</color>-->
         <color name="lightest_purple">#F4E5F7</color>
-        <color name="lightest_pink">#f8cadc</color>
+        <color name="lightest_pink">#FFEAF2</color>
         <color name="light_blue">#7291F9</color>
 
     <color name="main_first">#850F8D</color>
@@ -105,8 +105,8 @@
     <color name="card_palette7">#2c4875</color>
     <color name="card_palette8">#003f5c</color>
     <color name="card_palette9">#00202e</color>
-    <color name="card_palette10">#8a508f</color>
-    <color name="card_palette11">#bc5090</color>
+    <color name="card_palette10">#6F3674</color>
+    <color name="card_palette11">#8C3A6B</color>
 
 
     <color name="card_palette21">#ffe761</color>

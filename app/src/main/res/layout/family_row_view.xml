@@ -56,10 +56,10 @@
             tools:layout_editor_absoluteX="5dp"
             android:text="@string/test"
             android:textAlignment="center"
-            android:fontFamily="@font/simply_rounded_bold"
+            android:fontFamily="@font/songer_semiexpanded_extrabold"
             android:textSize="30sp"
             android:textStyle="bold"
-            android:textColor="@color/green_fourth"
+            android:textColor="@color/card_palette10"
             android:textAllCaps="true"
             />
     </androidx.constraintlayout.widget.ConstraintLayout>
